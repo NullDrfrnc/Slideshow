@@ -1,0 +1,17 @@
+.button {
+    background: var(--accent);
+    border: 1px solid var(--text);
+    border-radius: 5px;
+}
+
+.button + .button {
+    margin-left: 2px;
+}
+
+.w_100 {
+    min-width: 100%;
+}
+
+.f_right {
+    float: right;
+}

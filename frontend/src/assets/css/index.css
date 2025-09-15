@@ -1,0 +1,46 @@
+@media (prefers-color-scheme: light) {
+    * {
+        --text: #0d0d11;
+        --background: #f9f9fb;
+        --primary: #3450da;
+        --secondary: #a7accd;
+        --accent: #828fbf;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    * {
+        --text: #c9c9cb;
+        --background: #040406;
+        --primary: #2541cb;
+        --secondary: #323758;
+        --accent: #404d7d;
+    }
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+    color: var(--text);
+}
+
+#root, html, body {
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--background);
+}
+
+button {
+    background: none;
+    border: none;
+
+    cursor: pointer;
+}
