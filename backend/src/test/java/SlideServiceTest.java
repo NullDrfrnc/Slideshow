@@ -91,7 +91,9 @@ public class SlideServiceTest {
 
     @Test
     public void testUpdate() {
-        Slide updatedDogs = new Slide(dogs.getId(), "Doggo's", dogs.getDescription());
+        Slide updatedDogs = new Slide().setTitle("Doggo's")
+                .setDescription(dogs.getDescription())
+                .setId(dogs.getId());
 
         when(slideRepository.get(dogs.getId())).thenReturn(dogs);
         when(slideRepository.update(updatedDogs)).thenReturn(updatedDogs);

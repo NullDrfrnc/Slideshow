@@ -1,0 +1,40 @@
+* {
+    --header-height: 3rem;
+}
+
+.header {
+    font-size: 1.5rem;
+    display: flex;
+    width: 100%;
+    height: var(--header-height);
+    padding: 0.5rem 0;
+    background: var(--secondary);
+    min-height: fit-content;
+}
+
+.header form {
+    width: 100%;
+}
+
+.header form input {
+    height: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--text);
+    background-color: var(--accent);
+
+    min-width: 10rem;
+    width: 10rem;
+
+    padding: 0.1rem 0.25rem;
+}
+
+.header form input + input {
+    margin-left: 0.5rem;
+    width: 20%;
+}
+
+.header button {
+    height: 100%;
+    margin: 0 0.5rem;
+    aspect-ratio: 1;
+}

@@ -4,8 +4,9 @@ import {useParams} from "react-router";
 import type {Slide} from "../../../@types/slide";
 import {useNavigate} from "react-router-dom";
 
-import generic from "#/Generic.module.css"
 import style from "#/pages/Slides.module.css";
+import {Header} from "@/components/Header.tsx";
+import {SlideEditor} from "@/components/SlideEditor.tsx";
 
 export const EditSlide = () => {
     const params = useParams();
@@ -13,6 +14,7 @@ export const EditSlide = () => {
     const titleInputRef = useRef<HTMLInputElement>(null);
     const descriptionInputRef = useRef<HTMLInputElement>(null)
     const navigate = useNavigate();
+    const [loading, setLoading] = useState<boolean>(true);
 
     const [slide, setSlide] = useState<Slide | null>(null);
 
@@ -21,9 +23,10 @@ export const EditSlide = () => {
         if (id) {
             service.getByID(id).then(r => {
                 setSlide(r?.data)
+                setLoading(false);
             }).catch(alert);
         }
-    }, []);
+    }, [params.id, service]);
 
     useEffect(() => {
         if (titleInputRef.current && descriptionInputRef.current) {
@@ -33,19 +36,20 @@ export const EditSlide = () => {
     }, [slide]);
 
     const update = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
+        e.preventDefault();
 
         const title = titleInputRef.current?.value;
         const description = descriptionInputRef.current?.value;
 
         if (title) {
             service.update({
-                id: slide?.id,
+                ...slide, // IMPORTANT, this takes all the data currently set to the slide, the SlideEditor needs this to function properly
                 title,
                 description
             }).then(r => {
                 setSlide(r?.data)
                 alert("Update slide successfully")
+                navigate("/slides")
             }).catch(alert);
         } else {
             alert("Please enter title");
@@ -55,21 +59,21 @@ export const EditSlide = () => {
     return (
         <>
             <div className={`${style.slidePage}`}>
-                <div className={`${style.header}`}>
-                    <form onSubmit={update}>
-                        <button title={"back"} type={"button"} className={`${generic.button}`} onClick={() => navigate("/slides")}>
-                            <i className="fa-solid fa-angle-left"/>
-                        </button>
-                        <input title={"title"} id="title" type="text" ref={titleInputRef} placeholder={"Title"}/>
-                        <input title={"description"} id="description" type="text" ref={descriptionInputRef} placeholder={"description"}/>
-                        <button title={"save"} className={`${generic.button} ${generic.f_right}`} type="submit">
-                            <i className="fa-solid fa-floppy-disk"/>
-                        </button>
-                    </form>
-                </div>
-                <div className={`${style.slide}`}>
-                    test
-                </div>
+                <Header onSubmit={update} back={"/slides"}>
+                    <input
+                        title={"title"}
+                        type="text"
+                        ref={titleInputRef}
+                        placeholder={"Title"}
+                    />
+                    <input
+                        title={"description"}
+                        type="text"
+                        ref={descriptionInputRef}
+                        placeholder={"description"}
+                    />
+                </Header>
+                <SlideEditor getter={slide} setter={setSlide} loading={loading}/>
             </div>
         </>
     );

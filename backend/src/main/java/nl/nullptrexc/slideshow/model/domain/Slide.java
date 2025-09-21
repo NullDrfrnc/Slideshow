@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import io.micronaut.serde.annotation.Serdeable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Table
@@ -17,20 +20,20 @@ public class Slide extends IdEntity {
     private String title;
     @Column
     private String description;
+    @Column
+    @Lob
+    private HashMap<String, Object> style;
 
     public Slide() {
-    }
 
-    public Slide(String title, String description) {
-        this.title = title;
-        this.description = description;
     }
 
     @JsonCreator
-    public Slide(UUID id, String title, String description) {
+    public Slide(UUID id, String title, String description,  HashMap<String, Object> style) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.style = style;
     }
 
     @Override
@@ -53,6 +56,15 @@ public class Slide extends IdEntity {
 
     public Slide setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public Map<String, Object> getStyle() {
+        return style;
+    }
+
+    public Slide setStyle(HashMap<String, Object> style) {
+        this.style = style;
         return this;
     }
 }

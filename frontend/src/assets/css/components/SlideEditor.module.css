@@ -1,0 +1,42 @@
+.editorSlide {
+    aspect-ratio: 16/9;
+    max-height: calc(100% - var(--header-height) - 3rem);
+    margin: auto;
+}
+
+.properties {
+    height: 3rem;
+    align-items: center;
+    display: flex;
+
+    background-color: var(--accent);
+    color: var(--text);
+}
+
+.properties div {
+    align-items: center;
+    display: flex;
+}
+
+.properties div + div {
+    border-left: 1px solid var(--secondary);
+}
+
+.properties label {
+    margin: 0 0.25rem;
+    color: inherit;
+}
+
+.properties input {
+    margin: 0 0.25rem;
+    color: inherit;
+}
+
+.properties input[type="color"] {
+    width: 3rem;
+    height: 1.5rem;
+}
+
+.properties input[type="color"]:hover {
+    cursor: pointer;
+}

@@ -4,7 +4,10 @@ import nl.nullptrexc.slideshow.model.domain.IdEntity;
 import nl.nullptrexc.slideshow.persistance.hibernate.repository.GenericRepository;
 
 import java.io.Serializable;
+import java.util.Comparator;
+import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class GenericService<T extends IdEntity, R extends GenericRepository<T, ID>, ID extends Serializable> {
 
@@ -39,7 +42,9 @@ public abstract class GenericService<T extends IdEntity, R extends GenericReposi
     }
 
     public Set<T> findAll() {
-        return repository.getAll();
+        return repository.getAll()
+                .stream()
+                .sorted(Comparator.comparing(IdEntity::getId))
+                .collect(Collectors.toCollection(LinkedHashSet::new));
     }
-
 }
