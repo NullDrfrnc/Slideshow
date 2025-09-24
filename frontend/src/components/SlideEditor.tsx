@@ -23,7 +23,10 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                 value={getter.style?.backgroundColor}
                                 onInput={(e) => setter({
                                     ...getter,
-                                    style: {...getter?.style, backgroundColor: (e.target as HTMLInputElement).value}
+                                    style: {
+                                        ...getter?.style,
+                                        backgroundColor: (e.target as HTMLInputElement).value
+                                    }
                                 })}
                             />
                         </div>

@@ -6,3 +6,8 @@ export interface Slide {
     description?: string | undefined;
     style?: React.CSSProperties | undefined;
 }
+
+export interface SlideComponent {
+    id?: string | undefined;
+    style?: React.CSSProperties | undefined;
+}
