@@ -5,20 +5,20 @@ import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import nl.nullptrexc.slideshow.model.domain.IdEntity;
 import nl.nullptrexc.slideshow.service.GenericService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
+
 @SuppressWarnings("unchecked") // Supress all unchecked warnings since they should all be fine and dandy
 public abstract class GenericController<T extends IdEntity, S extends GenericService, ID extends Serializable> {
 
     protected final S service;
-
     protected final Logger logger;
 
     public GenericController(S service) {
+        logger = LoggerFactory.getLogger(this.getClass());
         this.service = service;
-        this.logger = LogManager.getLogger(this.getClass());
     }
 
     @Get()

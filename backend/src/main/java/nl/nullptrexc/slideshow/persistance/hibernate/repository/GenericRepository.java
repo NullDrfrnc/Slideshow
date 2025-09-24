@@ -11,7 +11,6 @@ import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.function.Function;
 
 @SuppressWarnings("unchecked")
 public abstract class GenericRepository<T extends IdEntity, ID extends Serializable> implements IGenericRepository<T, ID> {
@@ -24,18 +23,6 @@ public abstract class GenericRepository<T extends IdEntity, ID extends Serializa
         this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
-    protected <R> R withTransaction(Function<Session, R> action) {
-        Transaction trans = getSession().beginTransaction();
-        try {
-            R result = action.apply(getSession());
-            trans.commit();
-            return result;
-        } catch (RuntimeException e) {
-            if (trans != null && trans.isActive()) trans.rollback();
-            throw e;
-        }
-    }
-
     @Override
     public T load(T entity) {
         getSession().refresh(entity);
@@ -44,36 +31,30 @@ public abstract class GenericRepository<T extends IdEntity, ID extends Serializa
 
     @Override
     public T update(T entity) {
-        return withTransaction(session -> session.merge(entity));
+        return getSession().merge(entity);
     }
 
     @Override
     public T save(T entity) {
-        return withTransaction(session -> {
-            session.persist(entity);
-            return entity;
-        });
+        getSession().persist(entity);
+        return entity;
     }
 
     @Override
     public T delete(T entity) {
-        return withTransaction(session -> {
-            session.remove(entity);
-            return entity;
-        });
+        getSession().remove(entity);
+        return entity;
     }
 
     @Override
     public T get(ID id) {
-        return withTransaction(session -> session.find(persistentClass, id));
+        return getSession().find(persistentClass, id);
     }
 
     @Override
     public Set<T> getAll() {
-        return withTransaction(session -> {
-            CriteriaQuery<T> criteria = session.getCriteriaBuilder().createQuery(persistentClass);
-            return new HashSet<>(session.createQuery(criteria.select(criteria.from(persistentClass))).getResultList());
-        });
+        CriteriaQuery<T> criteria = getSession().getCriteriaBuilder().createQuery(persistentClass);
+        return new HashSet<>(getSession().createQuery(criteria.select(criteria.from(persistentClass))).getResultList());
     }
 
     public Session getSession() {
