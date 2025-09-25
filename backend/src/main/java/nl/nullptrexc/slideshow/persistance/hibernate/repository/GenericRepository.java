@@ -1,11 +1,13 @@
 package nl.nullptrexc.slideshow.persistance.hibernate.repository;
 
+import com.mysql.cj.log.LogFactory;
 import jakarta.persistence.criteria.CriteriaQuery;
 import nl.nullptrexc.slideshow.annotation.Transactional;
 import nl.nullptrexc.slideshow.model.domain.IdEntity;
 import nl.nullptrexc.slideshow.persistance.hibernate.interfaces.IGenericRepository;
 import nl.nullptrexc.slideshow.persistance.util.HibernateSessionManager;
 import org.hibernate.Session;
+import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
@@ -21,7 +23,7 @@ public abstract class GenericRepository<T extends IdEntity, ID extends Serializa
     public GenericRepository(HibernateSessionManager hibernateSessionManager) {
         this.hibernateSessionManager = hibernateSessionManager;
         Type superType = getClass().getGenericSuperclass();
-        while (!(superType instanceof ParameterizedType) && superType instanceof Class) {
+        while (superType instanceof Class) {
             superType = ((Class<?>) superType).getGenericSuperclass();
         }
         assert superType instanceof ParameterizedType;
