@@ -18,53 +18,48 @@ export abstract class AbstractService<Type> {
         this.endpoint = endpoint;
     }
 
-    getAll() {
-        return this.baseService.get(`${this.endpoint}`)
-            .then((r) =>
-                Promise.resolve(r)
-            ).catch((err) => {
-                console.log(err)
-                return undefined;
-            });
+    async getAll() {
+        try {
+            return await this.baseService.get(`${this.endpoint}`);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
-    getByID(id: string) {
-        return this.baseService.get(`${this.endpoint}/${id}`)
-            .then((r) =>
-                Promise.resolve(r)
-            ).catch((err) => {
-                console.log(err)
-                return undefined;
-            });
+    async getByID(id: string) {
+        try {
+            return await this.baseService.get(`${this.endpoint}/${id}`);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
-    create(data: Type) {
-        return this.baseService.post(`${this.endpoint}`, data)
-            .then((r) =>
-                Promise.resolve(r)
-            ).catch((err) => {
-                console.log(err)
-                return undefined;
-            });
+    async create(data: Type) {
+        try {
+            return await this.baseService.post(`${this.endpoint}`, data);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
-    update(data: Type) {
-        return this.baseService.patch(`${this.endpoint}`, data)
-            .then((r) =>
-                Promise.resolve(r)
-            ).catch((err) => {
-                console.log(err)
-                return undefined;
-            });
+    async update(data: Type) {
+        try {
+            return await this.baseService.patch(`${this.endpoint}`, data);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 
-    delete(id: string) {
-        return this.baseService.delete(`${this.endpoint}/${id}`)
-            .then((r) =>
-                Promise.resolve(r)
-            ).catch((err) => {
-                console.log(err)
-                return undefined;
-            });
+    async delete(id: string) {
+        try {
+            return await this.baseService.delete(`${this.endpoint}/${id}`);
+        } catch (err) {
+            console.log(err);
+            return undefined;
+        }
     }
 }
