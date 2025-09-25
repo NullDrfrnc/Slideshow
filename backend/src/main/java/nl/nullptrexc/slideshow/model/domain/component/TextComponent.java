@@ -1,6 +1,5 @@
 package nl.nullptrexc.slideshow.model.domain.component;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.persistence.*;
 import nl.nullptrexc.slideshow.model.domain.Slide;
 import nl.nullptrexc.slideshow.model.enums.TextType;
@@ -13,7 +12,7 @@ import java.util.UUID;
 public class TextComponent extends Component {
     @Column
     @Enumerated(EnumType.STRING)
-    private TextType type;
+    private TextType textType;
 
     @Column
     private String text;
@@ -23,16 +22,16 @@ public class TextComponent extends Component {
 
     public TextComponent(UUID id, Slide slide, HashMap<String, Object> style, TextType type, String text) {
         super(id, slide, style);
-        this.type = type;
+        this.textType = type;
         this.text = text;
     }
 
-    public TextType getType() {
-        return type;
+    public TextType getTextType() {
+        return textType;
     }
 
-    public TextComponent setType(TextType type) {
-        this.type = type;
+    public TextComponent setTextType(TextType type) {
+        this.textType = type;
         return this;
     }
 

@@ -22,7 +22,7 @@ public class Slide extends IdEntity {
     private HashMap<String, Object> style;
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @OneToMany(mappedBy = "slide", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "slide", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER /* Fetch eager while session is active */)
     private List<Component> components = new ArrayList<>();
 
     public Slide() {
@@ -35,6 +35,12 @@ public class Slide extends IdEntity {
         this.description = description;
         this.components = components;
         this.style = style;
+    }
+
+    public Slide addComponent(Component component) {
+        components.add(component);
+        component.setSlide(this); // keep both sides in sync
+        return this;
     }
 
     @Override
@@ -65,7 +71,10 @@ public class Slide extends IdEntity {
     }
 
     public Slide setComponents(List<Component> components) {
-        this.components = components;
+        this.components.clear();
+        if (components != null) {
+            components.forEach(this::addComponent);
+        }
         return this;
     }
 

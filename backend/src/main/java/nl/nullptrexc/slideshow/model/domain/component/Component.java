@@ -1,6 +1,7 @@
 package nl.nullptrexc.slideshow.model.domain.component;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import jakarta.persistence.*;
@@ -24,8 +25,9 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Component extends IdEntity {
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "slide_id")
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "slide.id")
     private Slide slide;
 
     @Column
