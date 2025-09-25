@@ -1,12 +1,12 @@
 package nl.nullptrexc.slideshow.persistance.hibernate.repository;
 
-import com.mysql.cj.log.LogFactory;
 import jakarta.persistence.criteria.CriteriaQuery;
-import nl.nullptrexc.slideshow.annotation.Transactional;
+import nl.nullptrexc.slideshow.util.annotation.Transactional;
 import nl.nullptrexc.slideshow.model.domain.IdEntity;
 import nl.nullptrexc.slideshow.persistance.hibernate.interfaces.IGenericRepository;
 import nl.nullptrexc.slideshow.persistance.util.HibernateSessionManager;
 import org.hibernate.Session;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
@@ -17,6 +17,7 @@ import java.util.Set;
 
 @SuppressWarnings("unchecked")
 public abstract class GenericRepository<T extends IdEntity, ID extends Serializable> implements IGenericRepository<T, ID> {
+    private static final Logger log = LoggerFactory.getLogger(GenericRepository.class);
     protected final Class<T> persistentClass;
     protected final HibernateSessionManager hibernateSessionManager;
 
@@ -47,6 +48,7 @@ public abstract class GenericRepository<T extends IdEntity, ID extends Serializa
     @Transactional
     public T save(T entity) {
         getSession().persist(entity);
+        log.info("Saved entity: {}", entity);
         return entity;
     }
 

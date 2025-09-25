@@ -1,44 +1,45 @@
 package nl.nullptrexc.slideshow.model.domain;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.micronaut.serde.annotation.Serdeable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import jakarta.persistence.*;
+import nl.nullptrexc.slideshow.model.domain.component.Component;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
+import java.util.List;
 
 @Table
 @Entity
-@Serdeable
 public class Slide extends IdEntity {
 
     @Column(nullable = false)
     private String title;
+
     @Column
     private String description;
+
     @Column
     @Lob
     private HashMap<String, Object> style;
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    @OneToMany(mappedBy = "slide", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Component> components = new ArrayList<>();
 
     public Slide() {
 
     }
 
-    @JsonCreator
-    public Slide(UUID id, String title, String description,  HashMap<String, Object> style) {
+    public Slide(UUID id, String title, String description, List<Component> components, HashMap<String, Object> style) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.components = components;
         this.style = style;
     }
 
     @Override
     public String toString() {
-        return STR."Slide{title='\{title}', description='\{description}', id=\{id}}";
+        return STR."Slide{ id=\{id}, title='\{title}', description='\{description}', components=\{components}, style=\{style}}";
     }
 
     public String getTitle() {
@@ -56,6 +57,15 @@ public class Slide extends IdEntity {
 
     public Slide setDescription(String description) {
         this.description = description;
+        return this;
+    }
+
+    public List<Component> getComponents() {
+        return components;
+    }
+
+    public Slide setComponents(List<Component> components) {
+        this.components = components;
         return this;
     }
 

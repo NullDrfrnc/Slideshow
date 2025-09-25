@@ -1,8 +1,6 @@
-package nl.nullptrexc.slideshow.annotation;
+package nl.nullptrexc.slideshow.util.annotation;
 
 import io.micronaut.aop.Around;
-import io.micronaut.context.annotation.Type;
-import nl.nullptrexc.slideshow.interceptor.HibernateSessionInterceptor;
 
 import java.lang.annotation.*;
 

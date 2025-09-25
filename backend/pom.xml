@@ -12,7 +12,6 @@
     <properties>
         <java.version>21</java.version>
         <micronaut.version>4.9.0</micronaut.version>
-        <micronaut.serde.version>2.15.1</micronaut.serde.version>
         <logback.version>1.5.18</logback.version>
         <hibernate.version>7.1.0.Final</hibernate.version>
         <mysqlconnector.version>9.4.0</mysqlconnector.version>
@@ -120,17 +119,10 @@
             <artifactId>micronaut-validation</artifactId>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.micronaut.serde/micronaut-serde-processor -->
         <dependency>
-            <groupId>io.micronaut.serde</groupId>
-            <artifactId>micronaut-serde-processor</artifactId>
-            <version>${micronaut.serde.version}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.micronaut.serde</groupId>
-            <artifactId>micronaut-serde-jackson</artifactId>
-            <version>${micronaut.serde.version}</version>
+            <groupId>io.micronaut</groupId>
+            <artifactId>micronaut-jackson-databind</artifactId>
+            <version>${micronaut.version}</version>
         </dependency>
 
         <dependency>
@@ -177,11 +169,6 @@
                             <groupId>io.micronaut.validation</groupId>
                             <artifactId>micronaut-validation-processor</artifactId>
                             <version>${micronaut.version}</version>
-                        </path>
-                        <path>
-                            <groupId>io.micronaut.serde</groupId>
-                            <artifactId>micronaut-serde-processor</artifactId>
-                            <version>${micronaut.serde.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>

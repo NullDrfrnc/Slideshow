@@ -1,8 +1,8 @@
-package nl.nullptrexc.slideshow.interceptor;
+package nl.nullptrexc.slideshow.util.interceptor;
 
 import io.micronaut.aop.*;
 import jakarta.inject.Singleton;
-import nl.nullptrexc.slideshow.annotation.Transactional;
+import nl.nullptrexc.slideshow.util.annotation.Transactional;
 import nl.nullptrexc.slideshow.persistance.util.HibernateSessionManager;
 import org.hibernate.Session;
 import org.hibernate.Transaction;

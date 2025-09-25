@@ -6,6 +6,10 @@
     <session-factory>
         <!-- Mappings -->
         <mapping class="nl.nullptrexc.slideshow.model.domain.Slide" />
+        <mapping class="nl.nullptrexc.slideshow.model.domain.component.Component" />
+        <mapping class="nl.nullptrexc.slideshow.model.domain.component.ImageComponent" />
+        <mapping class="nl.nullptrexc.slideshow.model.domain.component.TextComponent" />
+        <mapping class="nl.nullptrexc.slideshow.model.domain.component.VideoComponent" />
 
     </session-factory>
 </hibernate-configuration>
