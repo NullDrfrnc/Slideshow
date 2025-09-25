@@ -1,14 +1,10 @@
 import * as React from "react";
-import type {Slide} from "./slide.d.ts";
+import type {Slide} from "../../@types/slide.d.ts";
 
-export enum TextType {
-    p,
-    h1,
-    h2,
-    h3
-}
+export type TextType = "p" | "h1" | "h2" | "h3"
 
 export abstract class Component {
+    type?: string;
     id?: string;
     slide?: Slide;
     style?: React.CSSProperties;
