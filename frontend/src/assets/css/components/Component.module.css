@@ -1,0 +1,5 @@
+.component {
+    position: relative;
+    min-width: fit-content;
+    min-height: min-content;
+}

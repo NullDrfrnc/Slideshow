@@ -1,25 +1,30 @@
-import * as React from "react";
 import type {Slide} from "../../@types/slide.d.ts";
+import * as React from "react";
 
 export type TextType = "p" | "h1" | "h2" | "h3"
 
-export abstract class Component {
+export interface Component {
     type?: string;
     id?: string;
     slide?: Slide;
     style?: React.CSSProperties;
 }
 
-export class TextComponent extends Component {
+export interface TextComponent extends Component {
+    type?: "text";
     textType?: TextType;
     text?: string;
 }
 
-export class ImageComponent extends Component {
+export interface ImageComponent extends Component {
+    type?: "image";
     alt?: string;
     url?: string;
 }
 
-export class VideoComponent extends Component {
+export interface VideoComponent extends Component {
+    type?: "video";
     url?: string;
 }
+
+export type ComponentInfo = ImageComponent | TextComponent | VideoComponent;

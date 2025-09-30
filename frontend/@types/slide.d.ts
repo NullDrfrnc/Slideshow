@@ -1,10 +1,10 @@
 import * as React from "react";
-import {Component} from "./component"
+import type {ComponentInfo} from "@/domain/Component.ts";
 
 export interface Slide {
     id?: string | undefined;
     title: string;
     description?: string | undefined;
     style?: React.CSSProperties | undefined;
-    components?: Component[] | undefined;
+    components?: ComponentInfo[] | undefined;
 }
