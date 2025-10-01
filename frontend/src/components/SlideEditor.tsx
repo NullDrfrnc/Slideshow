@@ -35,6 +35,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                         key={getter.id}
                         className={`${style.editorSlide}`}
                         info={getter}
+                        slideSetter={setter}
                     />
                 </>
                 :
