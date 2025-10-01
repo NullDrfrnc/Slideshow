@@ -11,7 +11,7 @@ export const CreateSlide = () => {
     const service: SlideService = SlideService.getInstance;
     const titleInputRef = useRef<HTMLInputElement>(null);
     const descriptionInputRef = useRef<HTMLInputElement>(null)
-    const [slide, setSlide] = useState<Slide | null>({title: "", description: undefined, style: undefined});
+    const [slide, setSlide] = useState<Slide>({});
 
     const navigate = useNavigate();
 

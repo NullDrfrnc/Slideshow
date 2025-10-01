@@ -9,21 +9,28 @@ import * as React from "react";
 export interface SlideProps {
     info: slideType
     className?: string
-    slideSetter?: (info: slideType) => void | undefined
+    slideSetter?: React.Dispatch<React.SetStateAction<slideType>>;
 }
 
 export const Slide = ({info, className, slideSetter}: SlideProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     const setSlideComponent = (component: ComponentInfo) => {
-        if (!slideSetter || !info.components) return;
-        slideSetter({
-            ...info,
-            components: info.components.map((item: ComponentInfo) =>
+        if (!slideSetter) return;
+
+        slideSetter(prev => {
+            if (!prev || !prev.components) return prev;
+
+            const updatedComponents = prev.components.map((item: ComponentInfo) =>
                 item.id === component.id ? component : item
-            ),
+            );
+
+            return {
+                ...prev,
+                components: updatedComponents,
+            };
         });
-    }
+    };
 
     return (
         <>

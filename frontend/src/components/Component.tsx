@@ -92,15 +92,16 @@ export const DraggableComponent = ({info, setter, children, parent}: DraggableCo
         const xPercent = (newX / containerRect.width) * 100;
         const yPercent = (newY / containerRect.height) * 100;
 
-        setter({
+        const component = {
             ...info,
             style: {
                 ...info.style,
                 left: `${xPercent}%`,
-                top: `${yPercent}%`,
-                border: "1px solid black"
+                top: `${yPercent}%`
             },
-        });
+        }
+
+        setter(component);
     };
 
 

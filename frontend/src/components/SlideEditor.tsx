@@ -1,11 +1,12 @@
-import type {Slide as SlideType} from "../../@types/slide";
+import type {Slide as slideType, Slide as SlideType} from "../../@types/slide";
 import {Slide} from "@/components/Slide.tsx";
 
 import style from "#/components/SlideEditor.module.css"
+import * as React from "react";
 
 export interface SlideEditorProps {
     getter?: SlideType | null;
-    setter?: (value: SlideType) => void;
+    setter?: React.Dispatch<React.SetStateAction<slideType>>;
     loading?: boolean;
 }
 

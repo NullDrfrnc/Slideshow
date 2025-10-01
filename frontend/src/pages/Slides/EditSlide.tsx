@@ -16,9 +16,11 @@ export const EditSlide = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
 
-    const [slide, setSlide] = useState<Slide | null>(null);
+    const [slide, setSlide] = useState<Slide>({});
 
     useEffect(() => {
+        console.log("fetching")
+
         const id = params.id;
         if (id) {
             service.getByID(id).then(r => {
