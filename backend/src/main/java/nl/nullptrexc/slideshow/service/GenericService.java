@@ -1,7 +1,7 @@
 package nl.nullptrexc.slideshow.service;
 
 import nl.nullptrexc.slideshow.model.domain.IdEntity;
-import nl.nullptrexc.slideshow.persistance.hibernate.repository.GenericRepository;
+import nl.nullptrexc.slideshow.persistance.data.GenericRepository;
 
 import java.io.Serializable;
 import java.util.Comparator;
@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 public abstract class GenericService<T extends IdEntity, R extends GenericRepository<T, ID>, ID extends Serializable> {
 
-    public R repository;
+    public final R repository;
 
     public GenericService(R repository) {
         this.repository = repository;

@@ -5,8 +5,8 @@ import jakarta.persistence.*;
 import nl.nullptrexc.slideshow.model.domain.component.Component;
 
 import java.util.*;
-import java.util.List;
 
+@SuppressWarnings("preview")
 @Table
 @Entity
 public class Slide extends IdEntity {

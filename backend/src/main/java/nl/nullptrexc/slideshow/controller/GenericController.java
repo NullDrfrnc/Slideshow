@@ -4,14 +4,15 @@ import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
 import nl.nullptrexc.slideshow.model.domain.IdEntity;
+import nl.nullptrexc.slideshow.persistance.data.GenericRepository;
 import nl.nullptrexc.slideshow.service.GenericService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 
-@SuppressWarnings("unchecked") // Supress all unchecked warnings since they should all be fine and dandy
-public abstract class GenericController<T extends IdEntity, S extends GenericService, ID extends Serializable> {
+@SuppressWarnings({"preview"}) // Supress all unchecked warnings since they should all be fine and dandy
+public abstract class GenericController<T extends IdEntity, S extends GenericService<T, ? extends GenericRepository<T, ID>, ID>, ID extends Serializable> {
 
     protected final S service;
     protected final Logger logger;

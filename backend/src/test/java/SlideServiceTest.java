@@ -1,8 +1,6 @@
-import jakarta.inject.Inject;
 import nl.nullptrexc.slideshow.model.domain.Slide;
-import nl.nullptrexc.slideshow.persistance.hibernate.repository.SlideRepository;
+import nl.nullptrexc.slideshow.persistance.data.hibernate.repository.HibernateSlideRepository;
 import nl.nullptrexc.slideshow.service.SlideService;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,7 +19,7 @@ import static org.mockito.Mockito.when;
 public class SlideServiceTest {
 
     @Mock
-    SlideRepository slideRepository;
+    HibernateSlideRepository slideRepository;
 
     @InjectMocks
     SlideService slideService;

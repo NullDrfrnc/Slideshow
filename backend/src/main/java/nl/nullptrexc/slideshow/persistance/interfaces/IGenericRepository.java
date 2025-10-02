@@ -1,4 +1,4 @@
-package nl.nullptrexc.slideshow.persistance.hibernate.interfaces;
+package nl.nullptrexc.slideshow.persistance.interfaces;
 
 import nl.nullptrexc.slideshow.model.domain.IdEntity;
 

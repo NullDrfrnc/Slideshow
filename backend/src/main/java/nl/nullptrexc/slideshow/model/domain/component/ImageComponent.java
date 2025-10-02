@@ -1,6 +1,5 @@
 package nl.nullptrexc.slideshow.model.domain.component;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
 import jakarta.persistence.*;
 import nl.nullptrexc.slideshow.model.domain.Slide;
 
