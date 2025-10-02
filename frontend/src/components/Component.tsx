@@ -8,9 +8,10 @@ export interface ComponentProps {
     info: ComponentInfo,
     setter?: (value: ComponentInfo) => void | undefined,
     parent: React.RefObject<HTMLDivElement>
+    selectedSetter?: React.Dispatch<React.SetStateAction<ComponentInfo | null>>;
 }
 
-export const Component = ({info, setter, parent}: ComponentProps) => {
+export const Component = ({info, setter, parent, selectedSetter}: ComponentProps) => {
     let content: React.JSX.Element;
 
     const commonProps = {
@@ -39,23 +40,29 @@ export const Component = ({info, setter, parent}: ComponentProps) => {
 
     return (
         setter ? (
-            <DraggableComponent info={info} setter={setter} parent={parent}>
+            <EditableComponent
+                info={info}
+                setter={setter}
+                parent={parent}
+                selectedSetter={selectedSetter}
+            >
                 {content}
-            </DraggableComponent>
+            </EditableComponent>
         ) : (content)
     )
 }
 
 type AllowedElements = HTMLImageElement | HTMLVideoElement | HTMLHeadingElement | HTMLParagraphElement;
 
-export interface DraggableComponentProps {
+export interface EditableComponentProps {
     info: ComponentInfo,
     children?: React.ReactElement<React.DOMAttributes<AllowedElements>>,
     parent?: React.RefObject<HTMLDivElement>,
     setter: (value: ComponentInfo) => void,
+    selectedSetter?: React.Dispatch<React.SetStateAction<ComponentInfo | null>>;
 }
 
-export const DraggableComponent = ({info, setter, children, parent}: DraggableComponentProps) => {
+export const EditableComponent = ({info, setter, children, parent, selectedSetter}: EditableComponentProps) => {
     const dragging = useRef(false);
     const offset = useRef({x: 0, y: 0});
     const draggedElement = useRef<HTMLElement | null>(null);
@@ -63,6 +70,12 @@ export const DraggableComponent = ({info, setter, children, parent}: DraggableCo
     const onMouseDown = (e: React.MouseEvent) => {
         draggedElement.current = e.currentTarget as HTMLElement;
         dragging.current = true;
+
+        if (selectedSetter) {
+            selectedSetter(prev =>
+                prev !== null && prev.id !== info.id ? info : prev
+            )
+        }
 
         const rect = draggedElement.current.getBoundingClientRect();
         offset.current = {
@@ -104,8 +117,12 @@ export const DraggableComponent = ({info, setter, children, parent}: DraggableCo
         setter(component);
     };
 
-
     const onMouseUp = () => (dragging.current = false);
+
+    const onClick = () => {
+        if (selectedSetter !== undefined)
+            selectedSetter(info);
+    }
 
     useEffect(() => {
         window.addEventListener("mousemove", onMouseMove);
@@ -116,8 +133,8 @@ export const DraggableComponent = ({info, setter, children, parent}: DraggableCo
         };
     }, []);
 
-
     return React.cloneElement(children ? children : (<p>something went wrong</p>), {
         onMouseDown,
+        onClick
     });
 };

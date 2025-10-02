@@ -10,9 +10,10 @@ export interface SlideProps {
     info: slideType
     className?: string
     slideSetter?: React.Dispatch<React.SetStateAction<slideType>>;
+    selectedSetter?: React.Dispatch<React.SetStateAction<ComponentInfo | null>>;
 }
 
-export const Slide = ({info, className, slideSetter}: SlideProps) => {
+export const Slide = ({info, className, slideSetter, selectedSetter}: SlideProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     const setSlideComponent = (component: ComponentInfo) => {
@@ -41,7 +42,8 @@ export const Slide = ({info, className, slideSetter}: SlideProps) => {
                             info={component}
                             key={component.id}
                             parent={containerRef as React.RefObject<HTMLDivElement>}
-                            {...(slideSetter ? { setter: setSlideComponent } : {})}
+                            {...(slideSetter ? {setter: setSlideComponent} : {})}
+                            {...(selectedSetter ? {selectedSetter: selectedSetter} : {})}
                         />
                     )
                 })}

@@ -3,6 +3,7 @@ import {Slide} from "@/components/Slide.tsx";
 
 import style from "#/components/SlideEditor.module.css"
 import * as React from "react";
+import type {ComponentInfo} from "@/domain/Component.ts";
 
 export interface SlideEditorProps {
     getter?: SlideType | null;
@@ -11,6 +12,27 @@ export interface SlideEditorProps {
 }
 
 export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
+    const [selected, setSelected] = React.useState<ComponentInfo | null>(null);
+
+    const removeSlideComponent = (component: ComponentInfo) => {
+        if (!setter) return;
+
+        setter(prev => {
+            if (!prev || !prev.components) return prev;
+
+            const updatedComponents = prev.components.map((item: ComponentInfo) =>
+                item.id === component.id ? null : item
+            )
+
+            return {
+                ...prev,
+                components: updatedComponents
+            } as slideType
+        })
+
+        setSelected(null);
+    }
+
     return (
         <>
             {getter && setter ?
@@ -21,14 +43,23 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             <input
                                 title={"backgound_color"}
                                 type={"color"}
-                                value={getter.style?.backgroundColor}
-                                onInput={(e) => setter({
+                                value={getter.style?.backgroundColor || "#000000"}
+                                onChange={(e) => setter({
                                     ...getter,
                                     style: {
                                         ...getter?.style,
                                         backgroundColor: (e.target as HTMLInputElement).value
                                     }
                                 })}
+                            />
+                            <input
+                                title={"remove"}
+                                type={"button"}
+                                value={"Remove"}
+                                onClick={() => {
+                                    if (selected)
+                                        removeSlideComponent(selected)
+                                }}
                             />
                         </div>
                     </div>
@@ -37,6 +68,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                         className={`${style.editorSlide}`}
                         info={getter}
                         slideSetter={setter}
+                        selectedSetter={setSelected}
                     />
                 </>
                 :
