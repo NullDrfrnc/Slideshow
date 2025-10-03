@@ -1,6 +1,7 @@
 package nl.nullptrexc.slideshow.controller;
 
 import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.server.cors.CrossOrigin;
 import nl.nullptrexc.slideshow.model.domain.Slide;
 import nl.nullptrexc.slideshow.service.SlideService;
 
