@@ -4,9 +4,7 @@ const baseUrl = import.meta.env.VITE_API_URL;
 
 const abstractService = axios.create({
     baseURL: baseUrl,
-    headers: {
-        "Content-Type": "application/json",
-    },
+    withCredentials: true
 });
 
 export abstract class AbstractService<Type> {

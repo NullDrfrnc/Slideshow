@@ -36,9 +36,9 @@ export const SlideOverview = () => {
 
     return (
         <>
-            {
+            { slides &&
                 slides.map((slide: Slide) => (
-                    <div key={slide.id}>
+                    <div key={slide.id!}>
                         <button className={`${generic.button}`} onClick={() => navigate(`/slides/edit/${slide.id}`)}>edit</button>
                         <button className={`${generic.button}`} onClick={() => navigate(`/slides/view/${slide.id}`)}>view</button>
                         <button className={`${generic.button}`} onClick={() => deleteSlide(slide.id)}>delete</button>
