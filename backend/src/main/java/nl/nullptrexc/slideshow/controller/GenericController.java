@@ -11,7 +11,6 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 
-@SuppressWarnings({"preview"}) // Supress all unchecked warnings since they should all be fine and dandy
 public abstract class GenericController<T extends IdEntity, S extends GenericService<T, ? extends GenericRepository<T, ID>, ID>, ID extends Serializable> {
 
     protected final S service;
@@ -25,14 +24,14 @@ public abstract class GenericController<T extends IdEntity, S extends GenericSer
     @Get()
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> getAll() {
-        logger.info(STR."\{this.getClass()}.getAll() called");
+        logger.info(String.format("%s.getAll() called", this.getClass()));
         return HttpResponse.ok(service.findAll());
     }
 
     @Get("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> getWithID(ID id) {
-        logger.info(STR."\{this.getClass()}.getWithID(\{id.getClass()} \{id}) called");
+        logger.info(String.format("%s.getWithID(%s %s) called", this.getClass(), id.getClass(), id));
         return HttpResponse.ok(service.findById(id));
     }
 
@@ -40,7 +39,7 @@ public abstract class GenericController<T extends IdEntity, S extends GenericSer
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> create(@Body T entity) {
-        logger.info(STR."\{this.getClass()}.create(@Body \{entity.getClass()} \{entity}) called");
+        logger.info(String.format("%s.create(@Body %s %s) called", this.getClass(), entity.getClass(), entity));
         return HttpResponse.ok(service.save(entity));
     }
 
@@ -48,7 +47,7 @@ public abstract class GenericController<T extends IdEntity, S extends GenericSer
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> update(@Body T entity) {
-        logger.info(STR."\{this.getClass()}.update(@Body \{entity.getClass()} \{entity}) called");
+        logger.info(String.format("%s.update(@Body %s %s) called", this.getClass(), entity.getClass(), entity));
         return HttpResponse.ok(service.update(entity));
     }
 
@@ -56,7 +55,7 @@ public abstract class GenericController<T extends IdEntity, S extends GenericSer
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> delete(ID id) {
-        logger.info(STR."\{this.getClass()}.delete(\{id.getClass()} \{id}) called");
+        logger.info(String.format("%s.delete(%s %s) called", this.getClass(), id.getClass(), id));
         return HttpResponse.ok(service.delete(id));
     }
 }

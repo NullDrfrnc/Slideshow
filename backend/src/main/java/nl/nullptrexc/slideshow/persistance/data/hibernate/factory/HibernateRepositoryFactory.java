@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
-@SuppressWarnings("preview")
 @Factory
 public class HibernateRepositoryFactory {
     private final static Logger logger = LoggerFactory.getLogger(HibernateRepositoryFactory.class);
@@ -28,7 +27,7 @@ public class HibernateRepositoryFactory {
             repo = persistentClass.getDeclaredConstructor().newInstance();
         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
                  | NoSuchMethodException | SecurityException e) {
-            logger.error(STR."Encountered error whilst making repository: \{e}");
+            logger.error("Encountered error whilst making repository", e);
         }
         return (T) repo;
     }

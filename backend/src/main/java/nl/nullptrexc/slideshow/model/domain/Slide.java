@@ -1,12 +1,13 @@
 package nl.nullptrexc.slideshow.model.domain;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.persistence.*;
 import nl.nullptrexc.slideshow.model.domain.component.Component;
 
 import java.util.*;
 
-@SuppressWarnings("preview")
 @Table
 @Entity
 public class Slide extends IdEntity {
@@ -45,7 +46,11 @@ public class Slide extends IdEntity {
 
     @Override
     public String toString() {
-        return STR."Slide{ id=\{id}, title='\{title}', description='\{description}', components=\{components}, style=\{style}}";
+        try {
+            return new ObjectMapper().writeValueAsString(this);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public String getTitle() {
