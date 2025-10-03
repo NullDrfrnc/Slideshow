@@ -1,36 +1,53 @@
-import type {Slide as slideType, Slide as SlideType} from "../../@types/slide";
+import type {Slide as SlideType} from "../../@types/slide";
 import {Slide} from "@/components/Slide.tsx";
 
 import style from "#/components/SlideEditor.module.css"
 import * as React from "react";
 import type {ComponentInfo} from "@/domain/Component.ts";
+import {useRef, useState} from "react";
 
 export interface SlideEditorProps {
     getter?: SlideType | null;
-    setter?: React.Dispatch<React.SetStateAction<slideType>>;
+    setter?: React.Dispatch<React.SetStateAction<SlideType>>;
     loading?: boolean;
 }
 
 export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
-    const [selected, setSelected] = React.useState<ComponentInfo | null>(null);
+    const [selected, setSelected] = useState<ComponentInfo | null>(null);
+    const addSlideComponentRef = useRef<HTMLSelectElement>(null);
 
     const removeSlideComponent = (component: ComponentInfo) => {
         if (!setter) return;
-
         setter(prev => {
             if (!prev || !prev.components) return prev;
-
-            const updatedComponents = prev.components.map((item: ComponentInfo) =>
-                item.id === component.id ? null : item
-            )
-
             return {
                 ...prev,
-                components: updatedComponents
-            } as slideType
+                components: prev.components.filter((item: ComponentInfo) =>
+                    item.id !== component.id
+                )
+            } as SlideType
         })
-
         setSelected(null);
+    }
+
+    const addSlideComponent = () => {
+        if (!setter) return;
+        setter(prev => {
+                if (!prev || !prev.components) return prev;
+                const updatedComponents = prev.components;
+
+                updatedComponents.push({
+                    type: "text",
+                    textType: "p",
+                    text: "test"
+                })
+
+                return {
+                    ...prev,
+                    components: updatedComponents
+                } as SlideType
+            }
+        )
     }
 
     return (
@@ -52,15 +69,30 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                     }
                                 })}
                             />
+                            <select ref={addSlideComponentRef} name={"componentList"} id={"componentList"}>
+                                <option value={"text"}>text</option>
+                                <option value={"image"}>image</option>
+                                <option value={"video"}>video</option>
+                            </select>
                             <input
-                                title={"remove"}
+                                title={"add"}
                                 type={"button"}
-                                value={"Remove"}
-                                onClick={() => {
-                                    if (selected)
-                                        removeSlideComponent(selected)
-                                }}
+                                value={"Add"}
+                                onClick={addSlideComponent}
                             />
+                            {
+                                selected &&
+                                <input
+                                    title={"remove"}
+                                    type={"button"}
+                                    value={"Remove"}
+                                    onClick={() => {
+                                        if (selected)
+                                            removeSlideComponent(selected)
+                                    }}
+                                />
+                            }
+
                         </div>
                     </div>
                     <Slide
