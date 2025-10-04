@@ -8,6 +8,7 @@ export interface Component {
     id?: string;
     slide?: Slide;
     style?: React.CSSProperties;
+    tempID?: string; // TEMPORARY ID THAT WILL NOT PERSIST TO THE DB, ONLY USID IN FRONT-END
 }
 
 export interface TextComponent extends Component {

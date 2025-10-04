@@ -23,7 +23,7 @@ export const Slide = ({info, className, slideSetter, selectedSetter}: SlideProps
             if (!prev || !prev.components) return prev;
 
             const updatedComponents = prev.components.map((item: ComponentInfo) =>
-                item.id === component.id ? component : item
+                item.tempID === component.tempID ? component : item
             );
 
             return {
@@ -40,7 +40,7 @@ export const Slide = ({info, className, slideSetter, selectedSetter}: SlideProps
                     return (
                         <Component
                             info={component}
-                            key={component.id}
+                            key={component.tempID}
                             parent={containerRef as React.RefObject<HTMLDivElement>}
                             {...(slideSetter ? {setter: setSlideComponent} : {})}
                             {...(selectedSetter ? {selectedSetter: selectedSetter} : {})}

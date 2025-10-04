@@ -17,7 +17,7 @@ export const Component = ({info, setter, parent, selectedSetter}: ComponentProps
     const commonProps = {
         style: info.style,
         className: `${style.component}`,
-        id: `${info.id}`
+        id: `${info.tempID}`
     };
 
     switch (info.type) {
@@ -73,7 +73,7 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
 
         if (selectedSetter) {
             selectedSetter(prev =>
-                prev !== null && prev.id !== info.id ? info : prev
+                prev !== null && prev.tempID !== info.tempID ? info : prev
             )
         }
 

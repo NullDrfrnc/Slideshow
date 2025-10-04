@@ -4,7 +4,10 @@ import {Slide} from "@/components/Slide.tsx";
 import style from "#/components/SlideEditor.module.css"
 import * as React from "react";
 import type {ComponentInfo} from "@/domain/Component.ts";
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
+import add_text from "@/assets/images/icons/add_text.webp";
+import add_image from "@/assets/images/icons/add_image.webp";
+import add_video from "@/assets/images/icons/add_video.webp";
 
 export interface SlideEditorProps {
     getter?: SlideType | null;
@@ -14,7 +17,11 @@ export interface SlideEditorProps {
 
 export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
     const [selected, setSelected] = useState<ComponentInfo | null>(null);
-    const addSlideComponentRef = useRef<HTMLSelectElement>(null);
+    const imageRef = useRef<HTMLInputElement | null>(null);
+
+    useEffect(() => {
+        console.log(getter?.components)
+    }, [getter?.components]);
 
     const removeSlideComponent = (component: ComponentInfo) => {
         if (!setter) return;
@@ -23,24 +30,20 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
             return {
                 ...prev,
                 components: prev.components.filter((item: ComponentInfo) =>
-                    item.id !== component.id
+                    item.tempID !== component.tempID
                 )
             } as SlideType
         })
         setSelected(null);
     }
 
-    const addSlideComponent = () => {
-        if (!setter) return;
+    const addSlideComponent = (component: ComponentInfo) => {
+        if (!setter || !component) return;
         setter(prev => {
                 if (!prev || !prev.components) return prev;
-                const updatedComponents = prev.components;
+                const updatedComponents = [...prev.components];
 
-                updatedComponents.push({
-                    type: "text",
-                    textType: "p",
-                    text: "test"
-                })
+                updatedComponents.push(component);
 
                 return {
                     ...prev,
@@ -50,38 +53,89 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
         )
     }
 
+    const addImageComponent = (component: ComponentInfo) => {
+        if ((!setter || !component) && component.type === "image") return;
+        console.log(imageRef.current?.files?.item(0)?.type);
+    }
+
+    const generateRandomID = () => {
+        return `id-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+    }
+
     return (
         <>
             {getter && setter ?
                 <>
                     <div className={`${style.properties}`}>
-                        <div>
-                            <label htmlFor={"background_color"}>Background Color</label>
-                            <input
-                                title={"backgound_color"}
-                                type={"color"}
-                                value={getter.style?.backgroundColor || "#000000"}
-                                onChange={(e) => setter({
-                                    ...getter,
-                                    style: {
-                                        ...getter?.style,
-                                        backgroundColor: (e.target as HTMLInputElement).value
-                                    }
-                                })}
-                            />
-                            <select ref={addSlideComponentRef} name={"componentList"} id={"componentList"}>
-                                <option value={"text"}>text</option>
-                                <option value={"image"}>image</option>
-                                <option value={"video"}>video</option>
-                            </select>
-                            <input
-                                title={"add"}
-                                type={"button"}
-                                value={"Add"}
-                                onClick={addSlideComponent}
-                            />
-                            {
-                                selected &&
+                        <label htmlFor={"background_color"}>Background Color</label>
+                        <input
+                            title={"backgound_color"}
+                            type={"color"}
+                            value={getter.style?.backgroundColor || "#000000"}
+                            onChange={(e) => setter({
+                                ...getter,
+                                style: {
+                                    ...getter?.style,
+                                    backgroundColor: (e.target as HTMLInputElement).value
+                                }
+                            })}
+                        />
+                        <label className={`${style.imgbutton}`} htmlFor={"Add text"}>
+                            <img alt={"Add text component"} src={add_text}/>
+                        </label>
+                        <input
+                            id={"Add text"}
+                            title={"Add text"}
+                            type={"button"}
+                            onClick={() =>
+                                addSlideComponent({
+                                    tempID: generateRandomID(),
+                                    type: "text",
+                                    textType: "p",
+                                    text: "test",
+                                })
+                            }
+                            style={{display: "none"}}
+                        />
+                        <label className={`${style.imgbutton}`} htmlFor={"Add picture"}>
+                            <img alt={"Add text component"} src={add_image}/>
+                        </label>
+                        <input
+                            id={"Add picture"}
+                            ref={imageRef}
+                            title={"Add picture"}
+                            type={"file"}
+                            onInput={() => addImageComponent({
+                                type: "image",
+                                alt: "",
+                                url: "",
+                            })}
+                            style={{display: "none"}}
+                        />
+                        <label className={`${style.imgbutton}`} htmlFor={"Add video"}>
+                            <img alt={"Add video component"} src={add_video}/>
+                        </label>
+                        <input
+                            id={"Add video"}
+                            // ref={videoRef}
+                            title={"Add video"}
+                            type={"file"}
+                            onInput={() => addImageComponent({
+                                type: "video",
+                                url: "",
+                            })}
+                            style={{display: "none"}}
+                        />
+                        {
+                            selected &&
+                            <>
+                                {selected.type === "text" &&
+                                    <input
+                                        title={"Add text"}
+                                        type={"text"}
+                                        value={selected.text}
+                                    />
+                                }
                                 <input
                                     title={"remove"}
                                     type={"button"}
@@ -91,9 +145,8 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                             removeSlideComponent(selected)
                                     }}
                                 />
-                            }
-
-                        </div>
+                            </>
+                        }
                     </div>
                     <Slide
                         key={getter.id}

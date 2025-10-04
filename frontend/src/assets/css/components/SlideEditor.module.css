@@ -14,11 +14,6 @@
     color: var(--text);
 }
 
-.properties div {
-    align-items: center;
-    display: flex;
-}
-
 .properties div + div {
     border-left: 1px solid var(--secondary);
 }
@@ -28,7 +23,8 @@
     color: inherit;
 }
 
-.properties input {
+.properties input,
+.properties button {
     margin: 0 0.25rem;
     color: inherit;
 }
@@ -41,3 +37,13 @@
 .properties input[type="color"]:hover {
     cursor: pointer;
 }
+
+.imgbutton {
+    height: 60%;
+}
+
+.imgbutton img {
+    aspect-ratio: 1/1;
+    height: 100%;
+}
+

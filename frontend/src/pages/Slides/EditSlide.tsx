@@ -19,8 +19,6 @@ export const EditSlide = () => {
     const [slide, setSlide] = useState<Slide>({});
 
     useEffect(() => {
-        console.log("fetching")
-
         const id = params.id;
         if (id) {
             service.getByID(id).then(r => {
@@ -53,8 +51,6 @@ export const EditSlide = () => {
                 alert("Update slide successfully")
                 navigate("/slides")
             }).catch(alert);
-        } else {
-            alert("Please enter title");
         }
     }
 
