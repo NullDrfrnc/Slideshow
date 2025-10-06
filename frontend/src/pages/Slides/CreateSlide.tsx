@@ -9,9 +9,9 @@ import type {Slide} from "../../../@types/slide";
 
 export const CreateSlide = () => {
     const service: SlideService = SlideService.getInstance;
-    const titleInputRef = useRef<HTMLInputElement>(null);
-    const descriptionInputRef = useRef<HTMLInputElement>(null)
-    const [slide, setSlide] = useState<Slide>({});
+    const titleInputRef = useRef<HTMLInputElement | null>(null);
+    const descriptionInputRef = useRef<HTMLInputElement | null>(null)
+    const [slide, setSlide] = useState<Slide>({components: []});
 
     const navigate = useNavigate();
 

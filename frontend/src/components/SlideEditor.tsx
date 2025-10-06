@@ -18,10 +18,29 @@ export interface SlideEditorProps {
 export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
     const [selected, setSelected] = useState<ComponentInfo | null>(null);
     const imageRef = useRef<HTMLInputElement | null>(null);
+    const textRef = useRef<HTMLInputElement | null>(null)
 
     useEffect(() => {
         console.log(getter?.components)
     }, [getter?.components]);
+
+    const updateSlideComponent = (component: ComponentInfo | null) => {
+        if (!component || !setter) return;
+        setter(prev => {
+            if (!prev || !prev.components) return prev;
+            const updatedComponents = [...prev.components]
+            const index = updatedComponents.findIndex(item => item.tempID === selected?.tempID)
+            const toUpdate = updatedComponents[index];
+            if (component.type === "text" && toUpdate.type === "text") {
+                toUpdate.text = component.text;
+            }
+
+            return {
+                ...prev,
+                components: updatedComponents
+            }
+        })
+    }
 
     const removeSlideComponent = (component: ComponentInfo) => {
         if (!setter) return;
@@ -72,7 +91,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             title={"backgound_color"}
                             type={"color"}
                             value={getter.style?.backgroundColor || "#000000"}
-                            onChange={(e) => setter({
+                            onChange={(e) => setter!({
                                 ...getter,
                                 style: {
                                     ...getter?.style,
@@ -130,11 +149,18 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             selected &&
                             <>
                                 {selected.type === "text" &&
-                                    <input
-                                        title={"Add text"}
-                                        type={"text"}
-                                        value={selected.text}
-                                    />
+                                    <>
+                                        <input
+                                            title={"Add text"}
+                                            type={"text"}
+                                            value={selected.text}
+                                            onChange={(e) => updateSlideComponent({
+                                                ...selected,
+                                                text: e.target.value
+                                            })}
+                                        />
+                                        <p>{selected.text}</p>
+                                    </>
                                 }
                                 <input
                                     title={"remove"}

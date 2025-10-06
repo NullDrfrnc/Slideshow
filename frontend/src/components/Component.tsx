@@ -3,6 +3,7 @@ import * as React from "react";
 
 import style from "#/components/Component.module.css"
 import {useEffect, useRef} from "react";
+import type {Slide} from "../../@types/slide";
 
 export interface ComponentProps {
     info: ComponentInfo,
@@ -112,7 +113,7 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
                 left: `${xPercent}%`,
                 top: `${yPercent}%`
             },
-        }
+        } as Slide
 
         setter(component);
     };
