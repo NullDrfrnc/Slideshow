@@ -1,0 +1,6 @@
+micronaut:
+  application:
+    name: Slideshow
+  server:
+    cors:
+      enabled: true
