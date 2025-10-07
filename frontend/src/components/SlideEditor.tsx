@@ -18,7 +18,6 @@ export interface SlideEditorProps {
 export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
     const [selected, setSelected] = useState<ComponentInfo | null>(null);
     const imageRef = useRef<HTMLInputElement | null>(null);
-    const textRef = useRef<HTMLInputElement | null>(null)
 
     useEffect(() => {
         console.log(getter?.components)

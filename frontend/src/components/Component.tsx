@@ -106,16 +106,12 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
         const xPercent = (newX / containerRect.width) * 100;
         const yPercent = (newY / containerRect.height) * 100;
 
-        const component = {
-            ...info,
-            style: {
-                ...info.style,
-                left: `${xPercent}%`,
-                top: `${yPercent}%`
-            },
-        } as Slide
-
-        setter(component);
+        info.style = {
+            ...info.style,
+            left: `${xPercent}%`,
+            top: `${yPercent}%`
+        }
+        setter(info);
     };
 
     const onMouseUp = () => (dragging.current = false);
