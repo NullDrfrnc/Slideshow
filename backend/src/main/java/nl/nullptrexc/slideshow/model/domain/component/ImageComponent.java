@@ -2,31 +2,23 @@ package nl.nullptrexc.slideshow.model.domain.component;
 
 import jakarta.persistence.*;
 import nl.nullptrexc.slideshow.model.domain.Slide;
+import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.UUID;
 
 @Table
 @Entity
-public class ImageComponent extends Component {
-
-    @Column
-    private String url;
-
+public class ImageComponent extends FileComponent {
     public ImageComponent() {
     }
 
     public ImageComponent(UUID id, Slide slide, HashMap<String, Object> style, String url) {
-        super(id, slide, style);
-        this.url = url;
+        super(id, slide, style, url);
     }
 
-    public String getUrl() {
-        return url;
-    }
-
-    public ImageComponent setUrl(String url) {
-        this.url = url;
-        return this;
+    @Override
+    public void afterRemove() {
+        LoggerFactory.getLogger(this.getClass()).info("Removing VideoComponent: {}", this.url);
     }
 }

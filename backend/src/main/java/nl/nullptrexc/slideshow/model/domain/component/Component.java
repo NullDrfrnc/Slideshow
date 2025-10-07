@@ -27,11 +27,11 @@ public abstract class Component extends IdEntity {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "slide.id")
-    private Slide slide;
+    protected Slide slide;
 
     @Column
     @Lob
-    private HashMap<String, Object> style;
+    protected HashMap<String, Object> style;
 
     public Component() {
     }

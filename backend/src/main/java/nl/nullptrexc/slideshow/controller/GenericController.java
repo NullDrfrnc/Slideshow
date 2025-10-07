@@ -24,14 +24,14 @@ public abstract class GenericController<T extends IdEntity, S extends GenericSer
     @Get()
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> getAll() {
-        logger.info(String.format("%s.getAll() called", this.getClass()));
+        logger.info("{}.getAll() called", this.getClass());
         return HttpResponse.ok(service.findAll());
     }
 
     @Get("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> getWithID(ID id) {
-        logger.info(String.format("%s.getWithID(%s %s) called", this.getClass(), id.getClass(), id));
+        logger.info("{}.getWithID({} {}) called", this.getClass(), id.getClass(), id);
         return HttpResponse.ok(service.findById(id));
     }
 
@@ -47,7 +47,7 @@ public abstract class GenericController<T extends IdEntity, S extends GenericSer
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> update(@Body T entity) {
-        logger.info(String.format("%s.update(@Body %s %s) called", this.getClass(), entity.getClass(), entity));
+        logger.info("{}.update(@Body {} {}) called", this.getClass(), entity.getClass(), entity);
         return HttpResponse.ok(service.update(entity));
     }
 
@@ -55,7 +55,7 @@ public abstract class GenericController<T extends IdEntity, S extends GenericSer
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> delete(ID id) {
-        logger.info(String.format("%s.delete(%s %s) called", this.getClass(), id.getClass(), id));
+        logger.info("{}.delete({} {}) called", this.getClass(), id.getClass(), id);
         return HttpResponse.ok(service.delete(id));
     }
 }
