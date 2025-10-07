@@ -1,3 +1,15 @@
+.input {
+    appearance: none;
+    -webkit-appearance: none;
+
+    height: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--text);
+    background-color: var(--accent);
+
+    padding: 0.1rem 0.25rem;
+}
+
 .button {
     background: var(--accent);
     border: 1px solid var(--text);
@@ -16,8 +28,52 @@
     float: right;
 }
 
+.d_none {
+    display: none;
+}
+
 .slide {
     aspect-ratio: 16/9;
     max-height: 100%;
     margin: auto;
+}
+
+/* --- PROPERTIES --- */
+
+.properties {
+    padding: 0.5rem 0;
+    height: var(--header-height);
+    align-items: center;
+    display: flex;
+
+    background-color: var(--accent);
+    color: var(--text);
+}
+
+.properties div + div {
+    border-left: 1px solid var(--secondary);
+}
+
+.properties label {
+    margin: 0 0.25rem;
+    color: inherit;
+}
+
+.properties input,
+.properties button {
+    margin: 0 0.25rem;
+    color: inherit;
+}
+
+.properties input[type="color"] {
+    width: 3rem;
+    height: 1.5rem;
+}
+
+.properties input[type="color"]:hover {
+    cursor: pointer;
+}
+
+.properties .input {
+    height: 80%;
 }

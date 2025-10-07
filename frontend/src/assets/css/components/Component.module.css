@@ -3,3 +3,12 @@
     min-width: fit-content;
     min-height: min-content;
 }
+
+.dragableComponent:hover {
+    cursor: grab;
+}
+
+.dragableComponent:active,
+.dragableComponent:focus {
+    cursor: grabbing;
+}

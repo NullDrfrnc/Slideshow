@@ -2,10 +2,13 @@ import {type FormEvent, useRef, useState} from "react";
 import {SlideService} from "@/services/SlideService.ts";
 import {useNavigate} from "react-router-dom";
 
-import style from "#/pages/Slides.module.css";
 import {Header} from "@/components/Header.tsx";
 import {SlideEditor} from "@/components/SlideEditor.tsx";
 import type {Slide} from "../../../@types/slide";
+
+import generic from "#/Generic.module.css";
+import style from "#/pages/Slides.module.css";
+
 
 export const CreateSlide = () => {
     const service: SlideService = SlideService.getInstance;
@@ -34,12 +37,11 @@ export const CreateSlide = () => {
         <>
             <div className={`${style.slidePage}`}>
                 <Header onSubmit={create} back={"/slides"}>
-                    <input type="text" ref={titleInputRef} placeholder={"Title"}/>
-                    <input type="text" ref={descriptionInputRef} placeholder={"Description"}/>
+                    <input className={`${generic.input}`} type="text" ref={titleInputRef} placeholder={"Title"}/>
+                    <input className={`${generic.input}`} type="text" ref={descriptionInputRef} placeholder={"Description"}/>
                 </Header>
                 <SlideEditor getter={slide} setter={setSlide}/>
             </div>
-
         </>
     );
 }

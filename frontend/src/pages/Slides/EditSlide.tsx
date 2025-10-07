@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 import style from "#/pages/Slides.module.css";
 import {Header} from "@/components/Header.tsx";
 import {SlideEditor} from "@/components/SlideEditor.tsx";
+import generic from "#/Generic.module.css";
 
 export const EditSlide = () => {
     const params = useParams();
@@ -59,12 +60,14 @@ export const EditSlide = () => {
             <div className={`${style.slidePage}`}>
                 <Header onSubmit={update} back={"/slides"}>
                     <input
+                        className={`${generic.input}`}
                         title={"title"}
                         type="text"
                         ref={titleInputRef}
                         placeholder={"Title"}
                     />
                     <input
+                        className={`${generic.input}`}
                         title={"description"}
                         type="text"
                         ref={descriptionInputRef}

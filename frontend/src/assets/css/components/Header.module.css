@@ -1,7 +1,3 @@
-* {
-    --header-height: 3rem;
-}
-
 .header {
     font-size: 1.5rem;
     display: flex;
@@ -17,11 +13,6 @@
 }
 
 .header form input {
-    height: 100%;
-    border-radius: 5px;
-    border: 1px solid var(--text);
-    background-color: var(--accent);
-
     min-width: 10rem;
     width: 10rem;
 

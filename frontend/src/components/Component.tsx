@@ -3,8 +3,6 @@ import * as React from "react";
 
 import style from "#/components/Component.module.css"
 import {useEffect, useRef} from "react";
-import type {Slide} from "../../@types/slide";
-
 export interface ComponentProps {
     info: ComponentInfo,
     setter?: (value: ComponentInfo) => void | undefined,
@@ -117,7 +115,7 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
     const onMouseUp = () => (dragging.current = false);
 
     const onClick = () => {
-        if (selectedSetter !== undefined)
+        if (selectedSetter)
             selectedSetter(info);
     }
 
@@ -132,6 +130,7 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
 
     return React.cloneElement(children ? children : (<p>something went wrong</p>), {
         onMouseDown,
-        onClick
+        onClick,
+        className: `${style.component} ${style.dragableComponent}`
     });
 };
