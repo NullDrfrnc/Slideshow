@@ -4,28 +4,33 @@
     width: 100%;
     height: var(--header-height);
     padding: 0.5rem 0;
-    background: var(--secondary);
+    background: var(--primary);
     min-height: fit-content;
 }
 
 .header form {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .header form input {
     min-width: 10rem;
-    width: 10rem;
-
+    width: auto;
     padding: 0.1rem 0.25rem;
 }
 
 .header form input + input {
     margin-left: 0.5rem;
-    width: 20%;
 }
 
 .header button {
     height: 100%;
     margin: 0 0.5rem;
     aspect-ratio: 1;
+}
+
+.header form button:last-child {
+    margin-left: auto;
 }

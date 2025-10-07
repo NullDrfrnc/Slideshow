@@ -6,6 +6,7 @@
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["src/assets/css/*"],
+      "$/*": ["src/assets/icons/*"]
     },
 
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",

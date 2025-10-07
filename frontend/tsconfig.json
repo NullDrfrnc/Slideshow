@@ -10,6 +10,7 @@
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["src/assets/css/*"],
+      "$/*": ["src/assets/icons/*"]
     },
     "moduleResolution": "nodenext",
     "module": "esnext",

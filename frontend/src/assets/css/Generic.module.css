@@ -5,13 +5,17 @@
     height: 100%;
     border-radius: 5px;
     border: 1px solid var(--text);
-    background-color: var(--accent);
+    background-color: var(--secondary);
 
     padding: 0.1rem 0.25rem;
 }
 
+.input.primary {
+    background-color: var(--primary);
+}
+
 .button {
-    background: var(--accent);
+    background: var(--secondary);
     border: 1px solid var(--text);
     border-radius: 5px;
 }
@@ -46,12 +50,15 @@
     align-items: center;
     display: flex;
 
-    background-color: var(--accent);
+    background-color: var(--secondary);
     color: var(--text);
 }
 
-.properties div + div {
-    border-left: 1px solid var(--secondary);
+.properties .devider {
+    border: 1px solid var(--primary);
+    height: 100%;
+    margin: 0.25rem;
+    border-radius: 2rem;
 }
 
 .properties label {
@@ -72,8 +79,4 @@
 
 .properties input[type="color"]:hover {
     cursor: pointer;
-}
-
-.properties .input {
-    height: 80%;
 }

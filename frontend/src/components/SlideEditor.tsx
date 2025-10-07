@@ -3,13 +3,17 @@ import {Slide} from "@/components/Slide.tsx";
 import * as React from "react";
 import type {ComponentInfo} from "@/domain/Component.ts";
 import {useRef, useState} from "react";
+import {ReactSVG as SVG} from "react-svg";
+
+import background_color from "$/material-symbols--colors.svg"
+import add_text from "$/material-symbols--text-fields.svg"
+import add_photo from "$/material-symbols--add-photo-alternate-rounded.svg"
+import add_video from "$/material-symbols--video-camera-back-add.svg"
+
 
 import style from "#/components/SlideEditor.module.css"
-import generic from  "#/Generic.module.css";
+import generic from "#/Generic.module.css";
 
-import add_text from "@/assets/images/icons/add_text.webp";
-import add_image from "@/assets/images/icons/add_image.webp";
-import add_video from "@/assets/images/icons/add_video.webp";
 
 export interface SlideEditorProps {
     getter?: SlideType | null;
@@ -67,11 +71,16 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                 } as SlideType
             }
         )
+        setSelected(component);
     }
 
     const addImageComponent = (component: ComponentInfo) => {
-        if ((!setter || !component) && component.type === "image") return;
-        console.log(imageRef.current?.files?.item(0)?.type);
+        const uploadedFile = imageRef.current?.files?.item(0);
+        if (!setter || !component || !uploadedFile) return;
+
+        if(component.type === "image")
+
+        addSlideComponent(component);
     }
 
     const generateRandomID = () => {
@@ -83,8 +92,12 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
             {getter && setter ?
                 <>
                     <div className={`${generic.properties}`}>
-                        <label htmlFor={"background_color"}>Background Color</label>
-                        <label htmlFor={"background_color"} className={`${generic.input}`} style={{backgroundColor: getter.style?.backgroundColor, aspectRatio: '1/1'}}/>
+                        <label htmlFor={"background_color"} className={`${generic.input} ${generic.primary}`}
+                               style={{
+                                   backgroundColor: getter.style?.backgroundColor || "#000000"
+                               }}>
+                            <SVG src={background_color}/>
+                        </label>
                         <input
                             id={"background_color"}
                             className={`${generic.d_none}`}
@@ -99,8 +112,8 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                 }
                             })}
                         />
-                        <label className={`${style.imgbutton}`} htmlFor={"Add text"}>
-                            <img alt={"Add text component"} src={add_text}/>
+                        <label className={`${generic.input} ${generic.primary}`} htmlFor={"Add text"}>
+                            <SVG src={add_text}/>
                         </label>
                         <input
                             id={"Add text"}
@@ -116,8 +129,8 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             }
                             style={{display: "none"}}
                         />
-                        <label className={`${style.imgbutton}`} htmlFor={"Add picture"}>
-                            <img alt={"Add text component"} src={add_image}/>
+                        <label className={`${generic.input} ${generic.primary}`} htmlFor={"Add picture"}>
+                            <SVG src={add_photo}/>
                         </label>
                         <input
                             id={"Add picture"}
@@ -131,8 +144,8 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             })}
                             style={{display: "none"}}
                         />
-                        <label className={`${style.imgbutton}`} htmlFor={"Add video"}>
-                            <img alt={"Add video component"} src={add_video}/>
+                        <label className={`${generic.input} ${generic.primary}`} htmlFor={"Add video"}>
+                            <SVG src={add_video}/>
                         </label>
                         <input
                             id={"Add video"}
@@ -148,9 +161,10 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                         {
                             selected &&
                             <>
+                                <span className={`${generic.devider} ${generic.primary}`}/>
                                 {selected.type === "text" &&
                                     <input
-                                        className={`${generic.input}`}
+                                        className={`${generic.input} ${generic.primary}`}
                                         title={"Add text"}
                                         type={"text"}
                                         value={selected.text}
@@ -161,6 +175,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                     />
                                 }
                                 <input
+                                    className={`${generic.input} ${generic.primary}`}
                                     title={"remove"}
                                     type={"button"}
                                     value={"Remove"}

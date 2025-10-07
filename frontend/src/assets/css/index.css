@@ -2,9 +2,8 @@
     * {
         --text: #0d0d11;
         --background: #f9f9fb;
-        --primary: #3450da;
-        --secondary: #828fbf;
-        --accent: #a7accd;
+        --primary: #828fbf;
+        --secondary: #a7accd;
     }
 }
 
@@ -12,14 +11,15 @@
     * {
         --text: #c9c9cb;
         --background: #040406;
-        --primary: #2541cb;
-        --secondary: #323758;
-        --accent: #404d7d;
+        --primary: #323758;
+        --secondary: #404d7d;
     }
 }
 
 * {
     --header-height: 3rem;
+
+    font-family: "Ubuntu", sans-serif;
 
     box-sizing: border-box;
     margin: 0;
