@@ -4,13 +4,3 @@
     max-height: calc(100% - var(--header-height) - 3rem);
     margin: auto;
 }
-
-.imgbutton {
-    height: 80%;
-}
-
-.imgbutton img {
-    aspect-ratio: 1/1;
-    height: 100%;
-}
-

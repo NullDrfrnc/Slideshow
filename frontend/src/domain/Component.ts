@@ -1,4 +1,4 @@
-import type {Slide} from "../../@types/slide.d.ts";
+import type {SlideType} from "../../@types/slide.d.ts";
 import * as React from "react";
 
 export type TextType = "p" | "h1" | "h2" | "h3"
@@ -6,7 +6,7 @@ export type TextType = "p" | "h1" | "h2" | "h3"
 export interface Component {
     type?: string;
     id?: string;
-    slide?: Slide;
+    slide?: SlideType;
     style?: React.CSSProperties;
     tempID?: string; // TEMPORARY ID THAT WILL NOT PERSIST TO THE DB, ONLY USID IN FRONT-END
 }

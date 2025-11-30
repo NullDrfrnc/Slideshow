@@ -1,14 +1,15 @@
 import {useEffect, useState} from "react";
 import {SlideService} from "@/services/SlideService.ts";
-import type {Slide} from "../../../@types/slide";
+import type {SlideType} from "../../../@types/slide";
 import {useNavigate} from "react-router-dom";
 
 import generic from "#/Generic.module.css"
+import {Slide} from "@/components/Slide.tsx";
 
 export const SlideOverview = () => {
     const navigate = useNavigate()
     const service: SlideService = SlideService.getInstance;
-    const [slides, setSlides] = useState<Slide[]>([]);
+    const [slides, setSlides] = useState<SlideType[]>([]);
 
     useEffect(() => {
         service.getAll()
@@ -24,8 +25,7 @@ export const SlideOverview = () => {
         if (id)
             service.delete(id)
                 .then(r => {
-                        const currentSlides = [...slides]
-                        setSlides(currentSlides.filter(s => s.id !== id))
+                        setSlides([...slides].filter(s => s.id !== id))
                         alert(`Deleted Slide: ${r?.data?.id}`)
                     }
                 )
@@ -36,11 +36,15 @@ export const SlideOverview = () => {
 
     return (
         <>
-            { slides &&
-                slides.map((slide: Slide) => (
+            {slides &&
+                slides.map((slide: SlideType) => (
                     <div key={slide.id!}>
-                        <button className={`${generic.button}`} onClick={() => navigate(`/slides/edit/${slide.id}`)}>edit</button>
-                        <button className={`${generic.button}`} onClick={() => navigate(`/slides/view/${slide.id}`)}>view</button>
+                        <Slide info={slide} scale={0.5}/>
+                        <button className={`${generic.button}`}
+                                onClick={() => navigate(`/slides/edit/${slide.id}`)}>edit
+                        </button>
+                        <button className={`${generic.button}`} onClick={() => window.open(`/slides/view/${slide.id}`, '_blank')}>view
+                        </button>
                         <button className={`${generic.button}`} onClick={() => deleteSlide(slide.id)}>delete</button>
                         title: {slide.title}, description: {slide.description}, id: {slide.id}
                     </div>

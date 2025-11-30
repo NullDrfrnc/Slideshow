@@ -1,12 +1,12 @@
 import {AbstractService} from "@/services/AbstractService.ts";
-import type {Slide} from "../../@types/slide";
+import type {SlideType} from "../../@types/slide";
 import type {ComponentInfo} from "@/domain/Component.ts";
 
-export class SlideService extends AbstractService<Slide> {
+export class SlideService extends AbstractService<SlideType> {
     static instance: SlideService | undefined = undefined;
 
     constructor() {
-        super("slide");
+        super("/slide");
     }
 
     static get getInstance() {
@@ -18,7 +18,7 @@ export class SlideService extends AbstractService<Slide> {
     async getAll() {
         return super.getAll().then((r) => {
             if (r)
-                r.data?.forEach((item: Slide) => {
+                r.data?.forEach((item: SlideType) => {
                     item.components?.forEach((componentInfo: ComponentInfo) => {
                         componentInfo.tempID = componentInfo.id;
                     })
@@ -30,7 +30,7 @@ export class SlideService extends AbstractService<Slide> {
     async getByID(id: string) {
         return super.getByID(id).then((r) => {
             if (r)
-                (r.data as Slide).components?.forEach((componentInfo: ComponentInfo) => {
+                (r.data as SlideType).components?.forEach((componentInfo: ComponentInfo) => {
                     componentInfo.tempID = componentInfo.id;
                 })
             return r;

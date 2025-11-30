@@ -1,6 +1,44 @@
+slideshow-dir: ${user.home}/slideshow
+
+websocket:
+  prefix: /ws
+
 micronaut:
   application:
-    name: Slideshow
+    name: slideshow
+  router:
+    static-resources:
+      uploads:
+        paths: file:${slideshow-dir}/uploads
+        mapping: /static/uploads/**
+      swagger:
+        paths: classpath:META-INF/swagger
+        mapping: /swagger/**D
+      swagger-ui:
+        paths: classpath:META-INF/swagger/views/swagger-ui
+        mapping: /swagger-ui/**
   server:
     cors:
       enabled: true
+    netty:
+      listeners:
+        default:
+          port: 8080
+          host: localhost
+datasources:
+  default:
+    driver-class-name: org.mariadb.jdbc.Driver
+    db-type: mariadb
+    # Database URL,
+    url: jdbc:mariadb://localhost:3306/slideshow?createDatabaseIfNotExist=true&serverTimezone=Europe/Amsterdam&autoReconnect=true
+    # Database account    
+    username: dev
+    password: 987654
+    
+    # Schema generation: validate | create | create-drop | create-only | drop | update | none
+jpa.default.properties.hibernate.hbm2ddl.auto: update
+jpa:
+  default:
+    entity-scan:
+      packages:
+        - com.nullptrexc.slideshow.model.domain

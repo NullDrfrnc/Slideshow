@@ -1,3 +1,8 @@
 .slidePage {
     height: 100%;
 }
+
+.slideThumbnail {
+    height: 20rem;
+    aspect-ratio: 16/9;
+}

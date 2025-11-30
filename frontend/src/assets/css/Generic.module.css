@@ -20,14 +20,6 @@
     border-radius: 5px;
 }
 
-.button + .button {
-    margin-left: 2px;
-}
-
-.w_100 {
-    min-width: 100%;
-}
-
 .f_right {
     float: right;
 }
@@ -39,6 +31,9 @@
 .slide {
     aspect-ratio: 16/9;
     max-height: 100%;
+}
+
+.m_auto {
     margin: auto;
 }
 
@@ -67,7 +62,8 @@
 }
 
 .properties input,
-.properties button {
+.properties button,
+.properties select{
     margin: 0 0.25rem;
     color: inherit;
 }
@@ -79,4 +75,8 @@
 
 .properties input[type="color"]:hover {
     cursor: pointer;
+}
+
+.properties .input:first-child {
+    margin-left: 0.5rem;
 }

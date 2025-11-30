@@ -3,6 +3,7 @@ import * as React from "react";
 
 import style from "#/components/Component.module.css"
 import {useEffect, useRef} from "react";
+
 export interface ComponentProps {
     info: ComponentInfo,
     setter?: (value: ComponentInfo) => void | undefined,
@@ -30,7 +31,8 @@ export const Component = ({info, setter, parent, selectedSetter}: ComponentProps
         }
         case "text": {
             const Tag = info.textType ?? "p";
-            content = <Tag {...commonProps}>{info.text}</Tag>;
+            content =
+                <Tag {...commonProps}>{info.text}</Tag>;
             break;
         }
         default:
@@ -116,7 +118,7 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
 
     const onClick = () => {
         if (selectedSetter)
-            selectedSetter(info);
+            selectedSetter({...info});
     }
 
     useEffect(() => {
@@ -126,7 +128,7 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
             window.removeEventListener("mousemove", onMouseMove);
             window.removeEventListener("mouseup", onMouseUp);
         };
-    }, []);
+    });
 
     return React.cloneElement(children ? children : (<p>something went wrong</p>), {
         onMouseDown,

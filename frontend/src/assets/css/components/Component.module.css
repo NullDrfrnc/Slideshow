@@ -12,3 +12,19 @@
 .dragableComponent:focus {
     cursor: grabbing;
 }
+
+p.component {
+    font-size: 150%;
+}
+
+h1.component {
+    font-size: 400%;
+}
+
+h2.component {
+    font-size: 300%;
+}
+
+h3.component {
+    font-size: 250%;
+}

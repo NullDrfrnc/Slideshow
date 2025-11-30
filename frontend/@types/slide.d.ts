@@ -1,7 +1,7 @@
 import * as React from "react";
 import type {ComponentInfo} from "@/domain/Component.ts";
 
-export interface Slide {
+export interface SlideType {
     id?: string | undefined;
     title?: string;
     description?: string | undefined;

@@ -1,6 +1,6 @@
 import axios, {type AxiosInstance} from "axios";
 
-const baseUrl = import.meta.env.VITE_API_URL;
+export const baseUrl = import.meta.env.VITE_API_URL;
 
 const abstractService = axios.create({
     baseURL: baseUrl,
@@ -20,7 +20,7 @@ export abstract class AbstractService<Type> {
         try {
             return await this.baseService.get(`${this.endpoint}`);
         } catch (err) {
-            console.log(err);
+            console.error(err);
             return undefined;
         }
     }
@@ -29,7 +29,7 @@ export abstract class AbstractService<Type> {
         try {
             return await this.baseService.get(`${this.endpoint}/${id}`);
         } catch (err) {
-            console.log(err);
+            console.error(err);
             return undefined;
         }
     }
@@ -38,7 +38,7 @@ export abstract class AbstractService<Type> {
         try {
             return await this.baseService.post(`${this.endpoint}`, data);
         } catch (err) {
-            console.log(err);
+            console.error(err);
             return undefined;
         }
     }
@@ -47,7 +47,7 @@ export abstract class AbstractService<Type> {
         try {
             return await this.baseService.patch(`${this.endpoint}`, data);
         } catch (err) {
-            console.log(err);
+            console.error(err);
             return undefined;
         }
     }
@@ -56,7 +56,7 @@ export abstract class AbstractService<Type> {
         try {
             return await this.baseService.delete(`${this.endpoint}/${id}`);
         } catch (err) {
-            console.log(err);
+            console.error(err);
             return undefined;
         }
     }
