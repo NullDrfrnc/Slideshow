@@ -101,23 +101,25 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
         const file = e.target.files![0];
 
         fileUploadService.uploadImage({file}).then((r) => {
-            console.log(r)
-            if (r)
-                addSlideComponent({
-                    tempID: generateRandomID(),
-                    type: "image",
-                    alt: file.name,
-                    url: `${baseUrl}${r.data.url}`,
-                    style: {
-                        height: "100%",
-                    }
-                })
+            if (!r) return;
+
+            const {url, filename} = r.data;
+            addSlideComponent({
+                tempID: generateRandomID(),
+                type: "image",
+                filename: filename,
+                alt: filename,
+                url: `${baseUrl}${url}`,
+                style: {
+                    height: "100%",
+                }
+            })
         }).catch(alert)
 
 
     }
 
-    const getNumberFromStyleHeight = (element) => {
+    const getNumberFromStyleHeight = (element: ComponentInfo) => {
         if (!element?.style) return 10;
         return parseFloat(element.style?.height as string);
     }

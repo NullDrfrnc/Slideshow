@@ -69,6 +69,8 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
     const draggedElement = useRef<HTMLElement | null>(null);
 
     const onMouseDown = (e: React.MouseEvent) => {
+        if(e.button === 2) return; // Return early if right clicking
+
         draggedElement.current = e.currentTarget as HTMLElement;
         dragging.current = true;
 

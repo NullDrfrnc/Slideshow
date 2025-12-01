@@ -17,15 +17,18 @@ export interface TextComponent extends Component {
     text?: string;
 }
 
-export interface ImageComponent extends Component {
-    type?: "image";
-    alt?: string;
+export interface FileComponent extends Component {
     url?: string;
+    filename?: string;
 }
 
-export interface VideoComponent extends Component {
+export interface ImageComponent extends FileComponent {
+    type?: "image";
+    alt?: string;
+}
+
+export interface VideoComponent extends FileComponent {
     type?: "video";
-    url?: string;
 }
 
 export type ComponentInfo = ImageComponent | TextComponent | VideoComponent;

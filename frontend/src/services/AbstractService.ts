@@ -21,7 +21,7 @@ export abstract class AbstractService<Type> {
             return await this.baseService.get(`${this.endpoint}`);
         } catch (err) {
             console.error(err);
-            return undefined;
+            throw err;
         }
     }
 
@@ -30,7 +30,7 @@ export abstract class AbstractService<Type> {
             return await this.baseService.get(`${this.endpoint}/${id}`);
         } catch (err) {
             console.error(err);
-            return undefined;
+            throw err;
         }
     }
 
@@ -39,7 +39,7 @@ export abstract class AbstractService<Type> {
             return await this.baseService.post(`${this.endpoint}`, data);
         } catch (err) {
             console.error(err);
-            return undefined;
+            throw err;
         }
     }
 
@@ -48,7 +48,7 @@ export abstract class AbstractService<Type> {
             return await this.baseService.patch(`${this.endpoint}`, data);
         } catch (err) {
             console.error(err);
-            return undefined;
+            throw err;
         }
     }
 
@@ -57,7 +57,7 @@ export abstract class AbstractService<Type> {
             return await this.baseService.delete(`${this.endpoint}/${id}`);
         } catch (err) {
             console.error(err);
-            return undefined;
+            throw err;
         }
     }
 }
