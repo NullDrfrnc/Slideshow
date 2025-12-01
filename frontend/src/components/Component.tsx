@@ -1,4 +1,4 @@
-import type {ComponentInfo} from "../domain/Component.ts";
+import type {ComponentInfo} from "../../@types/Component.d.ts";
 import * as React from "react";
 
 import style from "#/components/Component.module.css"

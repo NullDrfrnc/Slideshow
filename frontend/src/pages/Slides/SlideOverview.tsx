@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {SlideService} from "@/services/SlideService.ts";
-import type {SlideType} from "../../../@types/slide";
+import type {SlideType} from "../../../@types/Slide";
 import {useNavigate} from "react-router-dom";
 
 import generic from "#/Generic.module.css"

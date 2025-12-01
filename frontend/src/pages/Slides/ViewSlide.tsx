@@ -1,7 +1,7 @@
 import {Slide} from "@/components/Slide.tsx";
 import {useParams} from "react-router";
 import {useEffect, useState} from "react";
-import type {SlideType as slideType} from "../../../@types/slide";
+import type {SlideType as slideType} from "../../../@types/Slide";
 import {SlideService} from "@/services/SlideService.ts";
 
 export const ViewSlide = () => {

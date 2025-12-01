@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 import {Header} from "@/components/Header.tsx";
 import {SlideEditor} from "@/components/editor/SlideEditor.tsx";
-import type {SlideType} from "../../../@types/slide";
+import type {SlideType} from "../../../@types/Slide";
 
 import generic from "#/Generic.module.css";
 import style from "#/pages/Slides.module.css";

@@ -1,7 +1,7 @@
 import {SlideService} from "@/services/SlideService.ts";
 import {type FormEvent, useEffect, useRef, useState} from "react";
 import {useParams} from "react-router";
-import type {SlideType} from "../../../@types/slide";
+import type {SlideType} from "../../../@types/Slide";
 import {useNavigate} from "react-router-dom";
 
 import style from "#/pages/Slides.module.css";

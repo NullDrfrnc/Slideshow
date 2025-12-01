@@ -1,4 +1,4 @@
-import type {SlideType} from "../../@types/slide.d.ts";
+import type {SlideType} from "./Slide.d.ts";
 import * as React from "react";
 
 export type TextType = "p" | "h1" | "h2" | "h3"
