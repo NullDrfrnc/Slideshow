@@ -124,6 +124,11 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
         return parseFloat(element.style?.height as string);
     }
 
+    const getNumberFromStyleWidth = (element: ComponentInfo) => {
+        if (!element?.style) return 10;
+        return parseFloat(element.style?.width as string);
+    }
+
     const generateRandomID = () => {
         return `id-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
     }
@@ -251,8 +256,8 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                 }
                                 <input
                                     className={`${generic.input} ${generic.primary}`}
-                                    id={"resize_selected"}
-                                    title={"resize"}
+                                    id={"resize_selected_height"}
+                                    title={"resize_height"}
                                     type={"number"}
                                     value={getNumberFromStyleHeight(selected)}
                                     min={1}
@@ -262,6 +267,22 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                         style: {
                                             ...selected?.style,
                                             height: `${e.target.value}%`
+                                        }
+                                    })}
+                                />
+                                <input
+                                    className={`${generic.input} ${generic.primary}`}
+                                    id={"resize_selected_width"}
+                                    title={"resize_width"}
+                                    type={"number"}
+                                    value={getNumberFromStyleWidth(selected)}
+                                    min={1}
+                                    max={100}
+                                    onChange={(e) => updateSlideComponent({
+                                        ...selected,
+                                        style: {
+                                            ...selected?.style,
+                                            width: `${e.target.value}%`
                                         }
                                     })}
                                 />

@@ -15,7 +15,7 @@ export interface SlideProps {
     scale?: number;
 }
 
-export const Slide = ({info, className, slideSetter, selectedSetter, scale}: SlideProps) => {
+export const Slide = ({info, className, slideSetter, selectedSetter, scale = 1}: SlideProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
 
     const setSlideComponent = (component: ComponentInfo) => {
@@ -37,7 +37,19 @@ export const Slide = ({info, className, slideSetter, selectedSetter, scale}: Sli
 
     return (
         <>
-            <div ref={containerRef} style={info.style} className={`${className || generic.slide}`}>
+            <div
+                ref={containerRef}
+                style={{
+                    ...info.style,
+                    ...(scale && scale !== 1
+                        ? {
+                            width: `${100 * scale}vw`,
+                            margin: "0",
+                        }
+                        : {}),
+                }}
+                className={`${generic.slide} ${className || ""}`}
+            >
                 {info.components?.map((component: ComponentInfo) => {
                     return (
                         <Component

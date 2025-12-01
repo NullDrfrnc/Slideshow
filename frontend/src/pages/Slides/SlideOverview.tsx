@@ -4,6 +4,7 @@ import type {SlideType} from "../../../@types/Slide";
 import {useNavigate} from "react-router-dom";
 
 import generic from "#/Generic.module.css"
+import {Slide} from "@/components/Slide.tsx";
 
 export const SlideOverview = () => {
     const navigate = useNavigate()
@@ -38,6 +39,7 @@ export const SlideOverview = () => {
             {slides &&
                 slides.map((slide: SlideType) => (
                     <div key={slide.id!}>
+                        <Slide info={slide} scale={0.25}/>
                         <button className={`${generic.button}`}
                                 onClick={() => navigate(`/slides/edit/${slide.id}`)}>edit
                         </button>
