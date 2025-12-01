@@ -13,13 +13,7 @@ public class ImageComponent extends FileComponent {
     public ImageComponent() {
     }
 
-    public ImageComponent(UUID id, Slide slide, HashMap<String, Object> style, String url) {
-        super(id, slide, style, url);
-    }
-
-    @Override
-    public void afterRemove() {
-        LoggerFactory.getLogger(this.getClass()).info("Removing VideoComponent: {}", this.url);
-
+    public ImageComponent(UUID id, Slide slide, HashMap<String, Object> style, String url, String filename) {
+        super(id, slide, style, url, filename);
     }
 }

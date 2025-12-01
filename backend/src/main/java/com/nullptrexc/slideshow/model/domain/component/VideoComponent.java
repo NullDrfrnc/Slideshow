@@ -14,12 +14,7 @@ public class VideoComponent extends FileComponent {
     public VideoComponent() {
     }
 
-    public VideoComponent(UUID id, Slide slide, HashMap<String, Object> style, String url) {
-        super(id, slide, style, url);
-    }
-
-    @Override
-    public void afterRemove() {
-        LoggerFactory.getLogger(this.getClass()).info("Removing VideoComponent: {}", this.url);
+    public VideoComponent(UUID id, Slide slide, HashMap<String, Object> style, String url, String filename) {
+        super(id, slide, style, url, filename);
     }
 }
