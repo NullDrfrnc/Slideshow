@@ -20,5 +20,6 @@ public class ImageComponent extends FileComponent {
     @Override
     public void afterRemove() {
         LoggerFactory.getLogger(this.getClass()).info("Removing VideoComponent: {}", this.url);
+
     }
 }

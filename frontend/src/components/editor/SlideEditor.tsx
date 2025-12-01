@@ -107,11 +107,19 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                     tempID: generateRandomID(),
                     type: "image",
                     alt: file.name,
-                    url: `${baseUrl}${r.data.url}`
+                    url: `${baseUrl}${r.data.url}`,
+                    style: {
+                        height: "100%",
+                    }
                 })
         }).catch(alert)
 
 
+    }
+
+    const getNumberFromStyleHeight = (element) => {
+        if (!element?.style) return 10;
+        return parseFloat(element.style?.height as string);
     }
 
     const generateRandomID = () => {
@@ -239,6 +247,22 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                         />
                                     </>
                                 }
+                                <input
+                                    className={`${generic.input} ${generic.primary}`}
+                                    id={"resize_selected"}
+                                    title={"resize"}
+                                    type={"number"}
+                                    value={getNumberFromStyleHeight(selected)}
+                                    min={1}
+                                    max={100}
+                                    onChange={(e) => updateSlideComponent({
+                                        ...selected,
+                                        style: {
+                                            ...selected?.style,
+                                            height: `${e.target.value}%`
+                                        }
+                                    })}
+                                />
                                 <label className={`${generic.input} ${generic.primary}`} htmlFor={"remove_selected"}>
                                     <SVG src={`${trashcan}`}/>
                                 </label>

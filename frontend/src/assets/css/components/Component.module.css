@@ -1,3 +1,18 @@
+.dragableComponent {
+    position: absolute;
+    cursor: grab;
+}
+
+.resizeHandle {
+    width: 10px;
+    height: 10px;
+    background: #333;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: se-resize; /* south-east resize */
+}
+
 .component {
     position: absolute;
     min-width: fit-content;

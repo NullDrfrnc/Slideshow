@@ -3,6 +3,7 @@ package com.nullptrexc.slideshow.controller.http;
 import com.nullptrexc.Config;
 import com.nullptrexc.slideshow.controller.LoggableEndpoint;
 import com.nullptrexc.slideshow.model.dto.UploadResponse;
+import com.nullptrexc.slideshow.service.FileService;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.Controller;
@@ -21,19 +22,17 @@ import java.security.PublicKey;
 
 @Controller("/uploads")
 public class UploadController extends LoggableEndpoint {
+    private final FileService fileService;
+
+    public UploadController(FileService fileService) {
+        this.fileService = fileService;
+    }
 
     @Post(consumes = MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> upload(@Part("file") CompletedFileUpload file) {
-        String filename = file.getFilename();
-        try {
-            try (InputStream is = file.getInputStream()) {
-                Files.copy(is, Config.UPLOADS_DIR.resolve(filename), StandardCopyOption.REPLACE_EXISTING);
-            }
-        } catch (IOException e) {
-            return HttpResponse.serverError("Failed to upload file");
-        }
 
-        return HttpResponse.ok(new UploadResponse(filename));
+
+        return HttpResponse.ok(new UploadResponse(file.getFilename()));
     }
 }

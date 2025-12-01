@@ -78,7 +78,7 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
             )
         }
 
-        const rect = draggedElement.current.getBoundingClientRect();
+        const rect = draggedElement.current?.getBoundingClientRect();
         offset.current = {
             x: e.clientX - rect.left,
             y: e.clientY - rect.top,
@@ -120,7 +120,7 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
 
     const onClick = () => {
         if (selectedSetter)
-            selectedSetter({...info});
+            selectedSetter({...info} as ComponentInfo); // Cast cuz its complaining again
     }
 
     useEffect(() => {
