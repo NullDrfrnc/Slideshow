@@ -3,8 +3,8 @@ import {SlideService} from "@/services/SlideService.ts";
 import {useNavigate} from "react-router-dom";
 
 import {Header} from "@/components/Header.tsx";
-import {SlideEditor} from "@/components/editor/SlideEditor.tsx";
-import type {SlideType} from "../../../@types/slide";
+import {SlideEditor} from "@/components/SlideEditor.tsx";
+import type {Slide} from "../../../@types/slide";
 
 import generic from "#/Generic.module.css";
 import style from "#/pages/Slides.module.css";
@@ -14,7 +14,7 @@ export const CreateSlide = () => {
     const service: SlideService = SlideService.getInstance;
     const titleInputRef = useRef<HTMLInputElement | null>(null);
     const descriptionInputRef = useRef<HTMLInputElement | null>(null)
-    const [slide, setSlide] = useState<SlideType>({components: [], style: {backgroundColor: "#FFFFFF"}});
+    const [slide, setSlide] = useState<Slide>({components: []});
 
     const navigate = useNavigate();
 

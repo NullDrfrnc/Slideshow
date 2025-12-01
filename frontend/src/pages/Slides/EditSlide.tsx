@@ -1,12 +1,12 @@
 import {SlideService} from "@/services/SlideService.ts";
 import {type FormEvent, useEffect, useRef, useState} from "react";
 import {useParams} from "react-router";
-import type {SlideType} from "../../../@types/slide";
+import type {Slide} from "../../../@types/slide";
 import {useNavigate} from "react-router-dom";
 
 import style from "#/pages/Slides.module.css";
 import {Header} from "@/components/Header.tsx";
-import {SlideEditor} from "@/components/editor/SlideEditor.tsx";
+import {SlideEditor} from "@/components/SlideEditor.tsx";
 import generic from "#/Generic.module.css";
 
 export const EditSlide = () => {
@@ -17,7 +17,7 @@ export const EditSlide = () => {
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
 
-    const [slide, setSlide] = useState<SlideType>({});
+    const [slide, setSlide] = useState<Slide>({});
 
     useEffect(() => {
         const id = params.id;

@@ -1,5 +1,5 @@
 import * as React from "react";
-import type {ComponentInfo} from "@/domain/Component.ts";
+import type {ComponentInfo} from "./Component.d.ts";
 
 export interface SlideType {
     id?: string | undefined;

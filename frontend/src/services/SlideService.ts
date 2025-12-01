@@ -1,6 +1,6 @@
 import {AbstractService} from "@/services/AbstractService.ts";
 import type {SlideType} from "../../@types/slide";
-import type {ComponentInfo} from "@/domain/Component.ts";
+import type {ComponentInfo} from "../../@types/Component.d.ts";
 
 export class SlideService extends AbstractService<SlideType> {
     static instance: SlideService | undefined = undefined;
