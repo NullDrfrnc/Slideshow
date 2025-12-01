@@ -1,7 +1,7 @@
 import type {SlideType as SlideType} from "../../../@types/slide";
 import {Slide} from "@/components/Slide.tsx";
 import * as React from "react";
-import type {ComponentInfo, TextType} from "../../../@types/Component.d.ts";
+import type {ComponentInfo, TextType} from "@/domain/Component.ts";
 import {useRef, useState} from "react";
 import {ReactSVG as SVG} from "react-svg";
 

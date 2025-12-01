@@ -1,5 +1,5 @@
 import type {SlideType as slideType} from "../../@types/slide";
-import type {ComponentInfo} from "../../@types/Component.d.ts";
+import type {ComponentInfo} from "@/domain/Component.ts";
 import {Component} from "@/components/Component.tsx";
 
 import generic from "#/Generic.module.css";
