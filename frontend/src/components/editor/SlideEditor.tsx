@@ -31,27 +31,39 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
 
     const updateSlideComponent = (component: ComponentInfo | null) => {
         if (!component || !setter) return;
+
         setter(prev => {
             if (!prev || !prev.components) return prev;
-            const updatedComponents = [...prev.components]
-            const index = updatedComponents.findIndex(item => item.tempID === selected?.tempID)
+
+            const updatedComponents = [...prev.components];
+            const index = updatedComponents.findIndex(c => c.tempID === selected?.tempID);
+
             if (index === -1) return prev;
 
-            const old = updatedComponents[index];
+            const oldComponent = updatedComponents[index];
 
-            if (old.type === component.type) {
-                updatedComponents[index] = {
-                    ...old,
-                    ...component,
+            // merge style separately (so nested objects merge too)
+            const merged = {
+                ...oldComponent,
+                ...component,
+                style: {
+                    ...oldComponent.style,
+                    ...component.style
                 }
-            }
+            } as ComponentInfo;
+
+            updatedComponents[index] = merged;
+
+            // keep selected in sync, or typing dies again
+            if (setSelected) setSelected(merged);
 
             return {
                 ...prev,
                 components: updatedComponents
-            }
-        })
-    }
+            };
+        });
+    };
+
 
     const removeSlideComponent = (component: ComponentInfo) => {
         if (!setter) return;
@@ -85,8 +97,8 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
     }
 
     const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (!e.target.files) return;
-        const file = e.target.files[0];
+        if (!e.target.files || !e.target) return;
+        const file = e.target.files![0];
 
         fileUploadService.uploadImage({file}).then((r) => {
             console.log(r)
@@ -97,7 +109,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                     alt: file.name,
                     url: `${baseUrl}${r.data.url}`
                 })
-        })
+        }).catch(alert)
 
 
     }
@@ -115,7 +127,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                style={{
                                    backgroundColor: getter.style?.backgroundColor || "#000000"
                                }}>
-                            <SVG src={color_bucket}/>
+                            <SVG src={`${color_bucket}`}/>
                         </label>
                         <input
                             id={"background_color"}
@@ -132,7 +144,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             })}
                         />
                         <label className={`${generic.input} ${generic.primary}`} htmlFor={"add_text"}>
-                            <SVG src={add_text}/>
+                            <SVG src={`${add_text}`}/>
                         </label>
                         <input
                             id={"add_text"}
@@ -150,19 +162,19 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             style={{display: "none"}}
                         />
                         <label className={`${generic.input} ${generic.primary}`} htmlFor={"add_picture"}>
-                            <SVG src={add_photo}/>
+                            <SVG src={`${add_photo}`}/>
                         </label>
                         <input
                             id={"add_picture"}
                             ref={imageRef}
                             title={"Add picture"}
                             type={"file"}
-                            accept={"image/*"}
+                            accept={"image/png, image/jpeg, image/gif"}
                             onChange={handleFileSelect}
                             style={{display: "none"}}
                         />
                         <label className={`${generic.input} ${generic.primary}`} htmlFor={"add_video"}>
-                            <SVG src={add_video}/>
+                            <SVG src={`${add_video}`}/>
                         </label>
                         <input
                             id={"add_video"}
@@ -209,7 +221,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                                    backgroundColor: selected.style?.color || "#000000"
                                                }}
                                         >
-                                            <SVG src={color_bucket}/>
+                                            <SVG src={`${color_bucket}`}/>
                                         </label>
                                         <input
                                             id={"font_color"}
@@ -228,7 +240,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                     </>
                                 }
                                 <label className={`${generic.input} ${generic.primary}`} htmlFor={"remove_selected"}>
-                                    <SVG src={trashcan}/>
+                                    <SVG src={`${trashcan}`}/>
                                 </label>
                                 <input
                                     className={`${generic.input} ${generic.primary}`}

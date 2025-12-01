@@ -91,7 +91,7 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
         if (!dragging.current || !parent?.current || !draggedElement.current) return;
 
         // Get bounding rects of the selected element (elementRect) and it's container (containerRect)
-        const elementRect = draggedElement.current.getBoundingClientRect();
+        const elementRect = draggedElement.current?.getBoundingClientRect();
         const containerRect = parent.current.getBoundingClientRect();
 
         // Calculate pixel position on the container element
@@ -106,12 +106,14 @@ export const EditableComponent = ({info, setter, children, parent, selectedSette
         const xPercent = (newX / containerRect.width) * 100;
         const yPercent = (newY / containerRect.height) * 100;
 
-        info.style = {
-            ...info.style,
+        const updated = {...info} as ComponentInfo
+
+        updated.style = {
+            ...updated.style,
             left: `${xPercent}%`,
             top: `${yPercent}%`
         }
-        setter(info);
+        setter(updated);
     };
 
     const onMouseUp = () => (dragging.current = false);
