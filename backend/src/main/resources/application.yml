@@ -18,6 +18,8 @@ micronaut:
         paths: classpath:META-INF/swagger/views/swagger-ui
         mapping: /swagger-ui/**
   server:
+    multipart:
+      max-file-size: 10490000
     cors:
       enabled: true
     netty:
@@ -42,3 +44,7 @@ jpa:
     entity-scan:
       packages:
         - com.nullptrexc.slideshow.model.domain
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: create
