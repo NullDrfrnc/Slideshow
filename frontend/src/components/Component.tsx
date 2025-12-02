@@ -22,7 +22,7 @@ export const Component = ({info, setter, parent, selectedSetter}: ComponentProps
 
     switch (info.type) {
         case "image": {
-            content = <img alt={info.alt} src={info.url} {...commonProps} />;
+            content = <img alt={info.alt} src={info.url} {...commonProps} draggable={false} />;
             break;
         }
         case "video": {
