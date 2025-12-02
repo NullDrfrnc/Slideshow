@@ -65,6 +65,7 @@ export const EditSlide = () => {
                         type="text"
                         ref={titleInputRef}
                         placeholder={"Title"}
+                        required
                     />
                     <input
                         className={`${generic.input}`}

@@ -8,17 +8,17 @@ import java.util.List;
 @Entity
 public class Playlist extends IdEntity {
     @Column(nullable = false)
-    private String name;
+    private String title;
 
     @ManyToMany
     private List<Slide> slides;
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public Playlist setName(String name) {
-        this.name = name;
+    public Playlist setTitle(String title) {
+        this.title = title;
         return this;
     }
 

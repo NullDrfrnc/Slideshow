@@ -28,8 +28,6 @@ export const CreateSlide = () => {
             service.create({...slide, title: title, description: description}).then(r =>
                 navigate(`/slides/edit/${r?.data.id}`)
             ).catch(alert);
-        } else {
-            alert("Please enter title");
         }
     }
 
@@ -37,8 +35,19 @@ export const CreateSlide = () => {
         <>
             <div className={`${style.slidePage}`}>
                 <Header onSubmit={create} back={"/slides"}>
-                    <input className={`${generic.input}`} type="text" ref={titleInputRef} placeholder={"Title"}/>
-                    <input className={`${generic.input}`} type="text" ref={descriptionInputRef} placeholder={"Description"}/>
+                    <input
+                        className={`${generic.input}`}
+                        type="text"
+                        ref={titleInputRef}
+                        placeholder={"Title"}
+                        required
+                    />
+                    <input
+                        className={`${generic.input}`}
+                        type="text"
+                        ref={descriptionInputRef}
+                        placeholder={"Description"}
+                    />
                 </Header>
                 <SlideEditor getter={slide} setter={setSlide}/>
             </div>
