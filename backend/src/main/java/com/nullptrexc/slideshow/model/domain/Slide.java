@@ -22,20 +22,24 @@ public class Slide extends IdEntity {
     @Lob
     private HashMap<String, Object> style;
 
+    @ManyToMany(mappedBy = "slides", fetch = FetchType.EAGER)
+    private List<Playlist> playlists = new ArrayList<>();
+
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    @OneToMany(mappedBy = "slide", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER /* Fetch eager while session is active */)
+    @OneToMany(mappedBy = "slide", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Component> components = new ArrayList<>();
 
     public Slide() {
 
     }
 
-    public Slide(UUID id, String title, String description, List<Component> components, HashMap<String, Object> style) {
+    public Slide(UUID id, String title, String description, List<Component> components, HashMap<String, Object> style, List<Playlist> playlists) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.components = components;
         this.style = style;
+        this.playlists = playlists;
     }
 
     public Slide addComponent(Component component) {
@@ -90,5 +94,13 @@ public class Slide extends IdEntity {
     public Slide setStyle(HashMap<String, Object> style) {
         this.style = style;
         return this;
+    }
+
+    public List<Playlist> getPlaylists() {
+        return playlists;
+    }
+
+    public void setPlaylists(List<Playlist> playlists) {
+        this.playlists = playlists;
     }
 }

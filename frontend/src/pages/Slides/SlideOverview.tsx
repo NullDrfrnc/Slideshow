@@ -41,9 +41,14 @@ export const SlideOverview = () => {
                     <div key={slide.id!}>
                         <Slide info={slide} scale={0.25}/>
                         <button className={`${generic.button}`}
-                                onClick={() => navigate(`/slides/edit/${slide.id}`)}>edit
+                                onClick={() => navigate(`/slides/edit/${slide.id}`)}
+                        >
+                            edit
                         </button>
-                        <button className={`${generic.button}`} onClick={() => window.open(`/slides/view/${slide.id}`, '_blank')}>view
+                        <button className={`${generic.button}`}
+                                onClick={() => window.open(`/slides/view/${slide.id}`, '_blank')}
+                        >
+                            view
                         </button>
                         <button className={`${generic.button}`} onClick={() => deleteSlide(slide.id)}>delete</button>
                         title: {slide.title}, description: {slide.description}, id: {slide.id}

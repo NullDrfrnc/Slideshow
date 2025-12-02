@@ -4,6 +4,7 @@ import com.nullptrexc.Config;
 import com.nullptrexc.slideshow.exception.FileDeletionException;
 import com.nullptrexc.slideshow.exception.FileUploadException;
 import com.nullptrexc.slideshow.model.domain.component.FileComponent;
+import io.micronaut.context.annotation.Prototype;
 import io.micronaut.http.multipart.CompletedFileUpload;
 import jakarta.inject.Singleton;
 import org.slf4j.Logger;
@@ -17,7 +18,7 @@ import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 import java.util.UUID;
 
-@Singleton
+@Prototype
 public class FileService {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
@@ -42,7 +43,7 @@ public class FileService {
     }
 
     private static String getFileExtension(CompletedFileUpload file) {
-        return "."+Optional.ofNullable(file.getFilename())
+        return "." + Optional.ofNullable(file.getFilename())
                 .filter(f -> f.contains("."))
                 .map(f -> f.substring(f.lastIndexOf('.') + 1))
                 .orElse("");
