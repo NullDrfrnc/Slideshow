@@ -4,3 +4,8 @@
     max-height: calc(100% - var(--header-height) - 3rem);
     margin: auto;
 }
+
+.thumbnail {
+    border-radius: 1rem;
+    overflow: hidden;
+}

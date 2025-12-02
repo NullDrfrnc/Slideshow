@@ -19,10 +19,10 @@ export const PlaylistOverview = () => {
     }, []);
 
     function deletePlaylist(id: string | undefined) {
-        if(id)
+        if (id)
             service.delete(id)
-                .then(r => {
-                    setPlaylists([...playlists].filter(s => s.id !== id))
+                .then(() => {
+                    setPlaylists([...playlists].filter(p => p.id !== id))
                     alert(`Deleted playlist`)
                 })
     }

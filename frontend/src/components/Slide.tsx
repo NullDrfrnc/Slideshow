@@ -44,6 +44,7 @@ export const Slide = ({info, className, slideSetter, selectedSetter, scale = 1}:
                     ...(scale && scale !== 1
                         ? {
                             width: `${100 * scale}vw`,
+                            fontSize: `${100 * scale}%`,
                             margin: "0",
                         }
                         : {}),
