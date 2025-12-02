@@ -38,7 +38,6 @@ datasources:
     password: 987654
     
     # Schema generation: validate | create | create-drop | create-only | drop | update | none
-jpa.default.properties.hibernate.hbm2ddl.auto: update
 jpa:
   default:
     entity-scan:
