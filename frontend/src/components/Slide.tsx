@@ -16,7 +16,7 @@ export interface SlideProps {
 }
 
 export const Slide = ({info, className, slideSetter, selectedSetter, scale = 1}: SlideProps) => {
-    const containerRef = useRef<HTMLDivElement>(null);
+    const containerRef = useRef<HTMLDivElement | null>(null);
 
     const setSlideComponent = (component: ComponentInfo) => {
         if (!slideSetter) return;
