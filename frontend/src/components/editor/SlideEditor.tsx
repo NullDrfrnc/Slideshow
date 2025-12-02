@@ -188,16 +188,16 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             onChange={handleFileSelect}
                             style={{display: "none"}}
                         />
-                        <label className={`${generic.input} ${generic.primary}`} htmlFor={"add_video"}>
-                            <SVG src={`${add_video}`}/>
-                        </label>
-                        <input
-                            id={"add_video"}
-                            title={"Add video"}
-                            type={"file"}
-                            onChange={() => alert("Not implemented")}
-                            style={{display: "none"}}
-                        />
+                        {/*<label className={`${generic.input} ${generic.primary}`} htmlFor={"add_video"}>*/}
+                        {/*    <SVG src={`${add_video}`}/>*/}
+                        {/*</label>*/}
+                        {/*<input*/}
+                        {/*    id={"add_video"}*/}
+                        {/*    title={"Add video"}*/}
+                        {/*    type={"file"}*/}
+                        {/*    onChange={() => alert("Not implemented")}*/}
+                        {/*    style={{display: "none"}}*/}
+                        {/*/>*/}
                         {
                             selected &&
                             <>
