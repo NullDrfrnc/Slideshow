@@ -37,7 +37,7 @@ datasources:
     username: dev
     password: 987654
     
-    # Schema generation: validate | create | create-drop | create-only | drop | update | none
+
 jpa:
   default:
     entity-scan:
@@ -46,4 +46,5 @@ jpa:
     properties:
       hibernate:
         hbm2ddl:
-          auto: create
+          auto: update
+          # Schema generation: validate | create | create-drop | create-only | drop | update | none

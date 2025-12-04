@@ -11,6 +11,11 @@ public class Playlist extends IdEntity {
     private String title;
 
     @ManyToMany
+    @JoinTable(
+            name = "playlist_slide",
+            joinColumns = @JoinColumn(name = "playlist_id"),
+            inverseJoinColumns = @JoinColumn(name = "slide_id")
+    )
     private List<Slide> slides;
 
     public String getTitle() {
