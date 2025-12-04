@@ -10,7 +10,7 @@ public class Playlist extends IdEntity {
     @Column(nullable = false)
     private String title;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "playlist_slide",
             joinColumns = @JoinColumn(name = "playlist_id"),
