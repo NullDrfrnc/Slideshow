@@ -1,5 +1,6 @@
 package com.nullptrexc.slideshow.model.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -23,6 +24,7 @@ public class Slide extends IdEntity {
     private HashMap<String, Object> style;
 
     @ManyToMany(mappedBy = "slides", fetch = FetchType.EAGER)
+    @JsonBackReference
     private List<Playlist> playlists = new ArrayList<>();
 
     @JsonInclude(JsonInclude.Include.NON_NULL)
