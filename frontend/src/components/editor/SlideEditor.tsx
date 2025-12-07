@@ -3,19 +3,15 @@ import {Slide} from "@/components/Slide.tsx";
 import * as React from "react";
 import type {ComponentInfo, TextType} from "../../../@types/Component.d.ts";
 import {useRef, useState} from "react";
-import {ReactSVG as SVG} from "react-svg";
 
 import {FileUploadService} from "@/services/FileUploadService.ts";
-
-import color_bucket from "$/material-symbols--colors.svg"
-import add_text from "$/material-symbols--text-fields.svg"
-import add_photo from "$/material-symbols--add-photo-alternate-rounded.svg"
-import add_video from "$/material-symbols--video-camera-back-add.svg"
-import trashcan from "$/material-symbols--delete.svg";
 
 import style from "#/components/SlideEditor.module.css"
 import generic from "#/Generic.module.css";
 import {baseUrl} from "@/services/AbstractService.ts";
+import {IoMdColorFill, IoMdTrash} from "react-icons/io";
+import {MdTextFields} from "react-icons/md";
+import {BiSolidImageAdd} from "react-icons/bi";
 
 
 export interface SlideEditorProps {
@@ -142,7 +138,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                style={{
                                    backgroundColor: getter.style?.backgroundColor || "#000000"
                                }}>
-                            <SVG src={`${color_bucket}`}/>
+                            <IoMdColorFill />
                         </label>
                         <input
                             id={"background_color"}
@@ -159,7 +155,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             })}
                         />
                         <label className={`${generic.input} ${generic.primary}`} htmlFor={"add_text"}>
-                            <SVG src={`${add_text}`}/>
+                            <MdTextFields />
                         </label>
                         <input
                             id={"add_text"}
@@ -177,7 +173,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                             style={{display: "none"}}
                         />
                         <label className={`${generic.input} ${generic.primary}`} htmlFor={"add_picture"}>
-                            <SVG src={`${add_photo}`}/>
+                            <BiSolidImageAdd />
                         </label>
                         <input
                             id={"add_picture"}
@@ -237,7 +233,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                                    backgroundColor: selected.style?.color || "#000000"
                                                }}
                                         >
-                                            <SVG src={`${color_bucket}`}/>
+                                            <IoMdColorFill />
                                         </label>
                                         <input
                                             id={"font_color"}
@@ -292,7 +288,7 @@ export const SlideEditor = ({getter, setter, loading}: SlideEditorProps) => {
                                     </>
                                 }
                                 <label className={`${generic.input} ${generic.primary}`} htmlFor={"remove_selected"}>
-                                    <SVG src={`${trashcan}`}/>
+                                    <IoMdTrash />
                                 </label>
                                 <input
                                     className={`${generic.input} ${generic.primary}`}

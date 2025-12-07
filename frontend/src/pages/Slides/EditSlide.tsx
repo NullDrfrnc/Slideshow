@@ -4,7 +4,6 @@ import {useParams} from "react-router";
 import type {SlideType} from "../../../@types/Slide";
 import {useNavigate} from "react-router-dom";
 
-import style from "#/pages/Slides.module.css";
 import {Header} from "@/components/Header.tsx";
 import {SlideEditor} from "@/components/editor/SlideEditor.tsx";
 import generic from "#/Generic.module.css";
@@ -12,8 +11,8 @@ import generic from "#/Generic.module.css";
 export const EditSlide = () => {
     const params = useParams();
     const service: SlideService = SlideService.getInstance;
-    const titleInputRef = useRef<HTMLInputElement>(null);
-    const descriptionInputRef = useRef<HTMLInputElement>(null)
+    const titleRef = useRef<HTMLInputElement>(null);
+    const descriptionRef = useRef<HTMLInputElement>(null)
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
 
@@ -30,17 +29,17 @@ export const EditSlide = () => {
     }, [params.id, service]);
 
     useEffect(() => {
-        if (titleInputRef.current && descriptionInputRef.current) {
-            titleInputRef.current.value = slide?.title ?? "";
-            descriptionInputRef.current.value = slide?.description ?? "";
+        if (titleRef.current && descriptionRef.current) {
+            titleRef.current.value = slide?.title ?? "";
+            descriptionRef.current.value = slide?.description ?? "";
         }
     }, [slide]);
 
     const update = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const title = titleInputRef.current?.value;
-        const description = descriptionInputRef.current?.value;
+        const title = titleRef.current?.value;
+        const description = descriptionRef.current?.value;
 
         if (title) {
             service.update({
@@ -57,26 +56,24 @@ export const EditSlide = () => {
 
     return (
         <>
-            <div className={`${style.slidePage}`}>
-                <Header onSubmit={update} back={"/slides"}>
-                    <input
-                        className={`${generic.input}`}
-                        title={"title"}
-                        type="text"
-                        ref={titleInputRef}
-                        placeholder={"Title"}
-                        required
-                    />
-                    <input
-                        className={`${generic.input}`}
-                        title={"description"}
-                        type="text"
-                        ref={descriptionInputRef}
-                        placeholder={"description"}
-                    />
-                </Header>
-                <SlideEditor getter={slide} setter={setSlide} loading={loading}/>
-            </div>
+            <Header onSubmit={update} back={"/slides"}>
+                <input
+                    className={`${generic.input}`}
+                    title={"title"}
+                    type="text"
+                    ref={titleRef}
+                    placeholder={"Title"}
+                    required
+                />
+                <input
+                    className={`${generic.input}`}
+                    title={"description"}
+                    type="text"
+                    ref={descriptionRef}
+                    placeholder={"description"}
+                />
+            </Header>
+            <SlideEditor getter={slide} setter={setSlide} loading={loading}/>
         </>
     );
 }

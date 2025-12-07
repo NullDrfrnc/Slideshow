@@ -1,14 +1,25 @@
 import generic from "#/Generic.module.css"
 import {Header} from "@/components/Header.tsx";
-import {type FormEvent, useRef} from "react";
+import {type FormEvent, useEffect, useRef, useState} from "react";
 import {PlaylistService} from "@/services/PlaylistService.ts";
 import {useNavigate} from "react-router-dom";
+import {SlideService} from "@/services/SlideService.ts";
+import type {SlideType} from "../../../@types/Slide";
+import {Slide} from "@/components/Slide.tsx";
 
 export const CreatePlaylist = () => {
-    const service: PlaylistService = PlaylistService.getInstance;
-    const titleRef = useRef<HTMLInputElement | null>(null)
-
     const navigate = useNavigate();
+    const playlistService: PlaylistService = PlaylistService.getInstance;
+    const slideService: SlideService = SlideService.getInstance;
+    const titleRef = useRef<HTMLInputElement | null>(null)
+    const [slides, setSlides] = useState<SlideType[]>([]);
+    const [selectedSlides, setSelectedSlides] = useState<SlideType[]>([]);
+
+    useEffect(() => {
+        slideService.getAll().then(r => {
+            setSlides(r.data);
+        })
+    }, []);
 
     const createPlaylist = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -16,7 +27,12 @@ export const CreatePlaylist = () => {
         const title = titleRef.current?.value;
 
         if (title) {
-            service.create({title}).then(r =>
+            playlistService.create(
+                {
+                    title,
+                    slides: selectedSlides
+                }
+            ).then(r =>
                 navigate(`/playlists/edit/${r?.data.id}`)
             ).catch(alert);
         }
@@ -24,17 +40,31 @@ export const CreatePlaylist = () => {
 
     return (
         <>
-            <div className={`${generic.m_auto}`}>
-                <Header onSubmit={createPlaylist} back={"/playlists"}>
-                    <input
-                        className={`${generic.input}`}
-                        type={"text"}
-                        ref={titleRef}
-                        placeholder={"Title"}
-                        required
-                    />
-                </Header>
-            </div>
+            <Header onSubmit={createPlaylist} back={"/playlists"}>
+                <input
+                    className={`${generic.input}`}
+                    type={"text"}
+                    ref={titleRef}
+                    placeholder={"Title"}
+                    required
+                />
+            </Header>
+            {
+                slides.map((slide: SlideType) => (
+                    <>
+                        <Slide info={slide} scale={0.25}/>
+                        <input
+                            type={"checkbox"}
+                            checked={selectedSlides.some(s => s.id === slide.id)}
+                            onChange={(e) => setSelectedSlides(prev =>
+                                e.target.checked
+                                    ? [...prev, slide]
+                                    : prev.filter(s => s.id !== slide.id)
+                            )}
+                        />
+                    </>
+                ))
+            }
         </>
     )
 }

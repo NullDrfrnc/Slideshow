@@ -14,6 +14,19 @@
     background-color: var(--primary);
 }
 
+.input > svg {
+    height: 100%;
+    width: 100%;
+}
+
+.input:hover {
+    cursor: pointer;
+}
+
+input[type="text"].input:hover {
+    cursor: text;
+}
+
 .button {
     background: var(--secondary);
     border: 1px solid var(--text);
@@ -26,6 +39,10 @@
 
 .d_none {
     display: none;
+}
+
+.d_flex {
+    display: flex;
 }
 
 .slide {
@@ -81,4 +98,9 @@
 
 .properties .input:first-child {
     margin-left: 0.5rem;
+}
+
+.thumbnail {
+    border-radius: 1rem;
+    overflow: hidden;
 }

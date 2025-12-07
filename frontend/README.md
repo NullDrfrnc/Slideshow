@@ -1,2 +1,2 @@
 ### Icon Pack
-https://icon-sets.iconify.design/material-symbols/
+https://react-icons.github.io/react-icons/icons/md/

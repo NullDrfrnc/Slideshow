@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import type {PlaylistType} from "../../../@types/playlist";
 
 import generic from "#/Generic.module.css"
+import {Header} from "@/components/Header.tsx";
+import {Playlist} from "@/components/Playlist.tsx";
 
 export const PlaylistOverview = () => {
     const navigate = useNavigate();
@@ -29,20 +31,19 @@ export const PlaylistOverview = () => {
 
     return (
         <>
+            <Header>
+                <h3>
+                    Playlists
+                </h3>
+            </Header>
             {playlists &&
                 playlists.map((playlist: PlaylistType) => (
                     <div key={playlist.id!}>
-                        <button className={`${generic.button}`}
-                                onClick={() => navigate(`/playlists/edit/${playlist.id}`)}
-                        >
-                            edit
-                        </button>
-                        <button
-                            onClick={() => deletePlaylist(playlist.id)}
-                        >
-                            delete
-                        </button>
-                        title: {playlist.title}, id: {playlist.id}
+                        <Playlist
+                            playlist={playlist}
+                            editPlaylist={() => navigate(`/playlists/edit/${playlist.id}`)}
+                            deletePlaylist={() => deletePlaylist(playlist.id)}
+                        />
                     </div>
                 ))
             }

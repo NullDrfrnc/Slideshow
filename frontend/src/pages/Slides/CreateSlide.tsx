@@ -7,7 +7,6 @@ import {SlideEditor} from "@/components/editor/SlideEditor.tsx";
 import type {SlideType} from "../../../@types/Slide";
 
 import generic from "#/Generic.module.css";
-import style from "#/pages/Slides.module.css";
 
 
 export const CreateSlide = () => {
@@ -33,24 +32,22 @@ export const CreateSlide = () => {
 
     return (
         <>
-            <div className={`${style.slidePage}`}>
-                <Header onSubmit={create} back={"/slides"}>
-                    <input
-                        className={`${generic.input}`}
-                        type="text"
-                        ref={titleInputRef}
-                        placeholder={"Title"}
-                        required
-                    />
-                    <input
-                        className={`${generic.input}`}
-                        type="text"
-                        ref={descriptionInputRef}
-                        placeholder={"Description"}
-                    />
-                </Header>
-                <SlideEditor getter={slide} setter={setSlide}/>
-            </div>
+            <Header onSubmit={create} back={"/slides"}>
+                <input
+                    className={`${generic.input}`}
+                    type="text"
+                    ref={titleInputRef}
+                    placeholder={"Title"}
+                    required
+                />
+                <input
+                    className={`${generic.input}`}
+                    type="text"
+                    ref={descriptionInputRef}
+                    placeholder={"Description"}
+                />
+            </Header>
+            <SlideEditor getter={slide} setter={setSlide}/>
         </>
     );
 }
