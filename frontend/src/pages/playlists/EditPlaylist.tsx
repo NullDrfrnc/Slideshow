@@ -17,6 +17,7 @@ export const EditPlaylist = () => {
     const navigate = useNavigate();
 
     const titleRef = useRef<HTMLInputElement | null>(null);
+    const descriptionRef = useRef<HTMLInputElement | null>(null);
 
     const [slides, setSlides] = useState<PlaylistType[]>([]);
     const [playlist, setPlaylist] = useState<PlaylistType>({});
@@ -33,17 +34,22 @@ export const EditPlaylist = () => {
         if (titleRef.current) {
             titleRef.current.value = playlist.title || ""
         }
+        if(descriptionRef.current) {
+            descriptionRef.current.value = playlist.description || ""
+        }
     }, [playlist]);
 
     const updatePlaylist = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
         const title = titleRef.current?.value;
+        const description = descriptionRef.current?.value;
 
         if (title) {
             playlistService.update({
                 ...playlist,
-                title
+                title,
+                description
             }).then((r) => {
                 setPlaylist(r.data)
                 alert("Update playlist successfully")
@@ -61,6 +67,12 @@ export const EditPlaylist = () => {
                     ref={titleRef}
                     placeholder={"Title"}
                     required
+                />
+                <input
+                    className={`${generic.input}`}
+                    type={"text"}
+                    ref={descriptionRef}
+                    placeholder={"Description"}
                 />
             </Header>
             {

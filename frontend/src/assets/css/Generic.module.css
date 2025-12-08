@@ -8,6 +8,7 @@
     background-color: var(--secondary);
 
     padding: 0.1rem 0.25rem;
+    margin: 0.1rem;
 }
 
 .input.primary {
@@ -103,4 +104,29 @@ input[type="text"].input:hover {
 .thumbnail {
     border-radius: 1rem;
     overflow: hidden;
+}
+
+.table {
+
+}
+
+.table thead {
+    background-color: var(--secondary);
+    font-size: 1.2rem;
+    height: 2rem;
+}
+
+.table thead th,
+.table td {
+    text-align: start;
+    padding: 0.2rem;
+    white-space: nowrap;
+}
+
+.table thead th:first-child {
+    min-width: 15%;
+}
+
+.table th:nth-child(2) {
+    min-width: 100%;
 }

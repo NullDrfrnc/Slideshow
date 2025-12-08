@@ -9,11 +9,12 @@ import {MdKeyboardReturn, MdSaveAs} from "react-icons/md";
 export interface HeaderProps {
     children?: React.ReactNode | undefined;
     onSubmit?: React.FormEventHandler<HTMLFormElement> | undefined;
+    submitIcon?: React.ReactNode;
     back?: string | undefined;
     delta?: number | undefined;
 }
 
-export const Header = ({children, onSubmit, back, delta}: HeaderProps) => {
+export const Header = ({children, onSubmit, submitIcon, back, delta}: HeaderProps) => {
     const navigate = useNavigate();
 
     return (
@@ -30,7 +31,7 @@ export const Header = ({children, onSubmit, back, delta}: HeaderProps) => {
                         }
                         {children}
                         <button title={"save"} className={`${generic.input} ${generic.f_right}`} type="submit">
-                            <MdSaveAs/>
+                            {submitIcon  || (<MdSaveAs/>)}
                         </button>
                     </form>
                     :

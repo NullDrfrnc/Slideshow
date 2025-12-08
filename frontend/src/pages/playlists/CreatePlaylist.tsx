@@ -11,7 +11,10 @@ export const CreatePlaylist = () => {
     const navigate = useNavigate();
     const playlistService: PlaylistService = PlaylistService.getInstance;
     const slideService: SlideService = SlideService.getInstance;
+
     const titleRef = useRef<HTMLInputElement | null>(null)
+    const descriptionRef = useRef<HTMLInputElement | null>(null)
+
     const [slides, setSlides] = useState<SlideType[]>([]);
     const [selectedSlides, setSelectedSlides] = useState<SlideType[]>([]);
 
@@ -25,11 +28,13 @@ export const CreatePlaylist = () => {
         e.preventDefault();
 
         const title = titleRef.current?.value;
+        const description = descriptionRef.current?.value;
 
         if (title) {
             playlistService.create(
                 {
                     title,
+                    description,
                     slides: selectedSlides
                 }
             ).then(r =>
@@ -47,6 +52,12 @@ export const CreatePlaylist = () => {
                     ref={titleRef}
                     placeholder={"Title"}
                     required
+                />
+                <input
+                    className={`${generic.input}`}
+                    type={"text"}
+                    ref={descriptionRef}
+                    placeholder={"Description"}
                 />
             </Header>
             {
