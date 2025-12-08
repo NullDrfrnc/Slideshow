@@ -32,7 +32,7 @@ export const CreateSlide = () => {
 
     return (
         <>
-            <Header onSubmit={create} back={"/slides"}>
+            <Header onSave={create} back={"/slides"}>
                 <input
                     className={`${generic.input}`}
                     type="text"

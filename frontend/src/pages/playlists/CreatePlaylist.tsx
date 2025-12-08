@@ -45,7 +45,7 @@ export const CreatePlaylist = () => {
 
     return (
         <>
-            <Header onSubmit={createPlaylist} back={"/playlists"}>
+            <Header onSave={createPlaylist} back={"/playlists"}>
                 <input
                     className={`${generic.input}`}
                     type={"text"}

@@ -60,7 +60,7 @@ export const EditPlaylist = () => {
 
     return (
         <>
-            <Header onSubmit={updatePlaylist} back={"/playlists"}>
+            <Header onSave={updatePlaylist} back={"/playlists"}>
                 <input
                     className={`${generic.input}`}
                     type={"text"}

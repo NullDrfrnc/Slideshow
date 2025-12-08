@@ -5,6 +5,8 @@ import {useNavigate} from "react-router-dom";
 
 import generic from "#/Generic.module.css"
 import {Slide} from "@/components/Slide.tsx";
+import {Header} from "@/components/Header.tsx";
+import * as React from "react";
 
 export const SlideOverview = () => {
     const navigate = useNavigate()
@@ -36,6 +38,13 @@ export const SlideOverview = () => {
 
     return (
         <>
+            <Header
+                onCreate={() => navigate(`/slides/create`)}
+            >
+                <h3>
+                    Slides
+                </h3>
+            </Header>
             {slides &&
                 slides.map((slide: SlideType) => (
                     <div key={slide.id!}>
@@ -55,7 +64,6 @@ export const SlideOverview = () => {
                     </div>
                 ))
             }
-            <button className={`${generic.button}`} onClick={() => navigate(`/slides/create`)}>Create</button>
         </>
     )
 }

@@ -56,7 +56,7 @@ export const EditSlide = () => {
 
     return (
         <>
-            <Header onSubmit={update} back={"/slides"}>
+            <Header onSave={update} back={"/slides"}>
                 <input
                     className={`${generic.input}`}
                     title={"title"}

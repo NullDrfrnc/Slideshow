@@ -35,8 +35,7 @@ export const PlaylistOverview = () => {
     return (
         <>
             <Header
-                onSubmit={() => navigate(`/playlists/create`)}
-                submitIcon={<BiPlus/>}
+                onCreate={() => navigate(`/playlists/create`)}
             >
                 <h3>
                     Playlists
